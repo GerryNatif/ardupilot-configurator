@@ -1,0 +1,17 @@
+<app-title-page title="FailSafe" />
+
+<div class="container-fluid">
+	<div class="row gap-lg">
+		<div class="col-6 col-md-12">
+			<app-param-table
+				[section]="failsafeSection()"
+				[disabled]="!isConnected()"
+				(valueChange)="onFailsafeParameterValueChange($event)"
+			></app-param-table>
+		</div>
+
+		<div class="col-6 col-md-12">
+			<app-rtl-visualizer></app-rtl-visualizer>
+		</div>
+	</div>
+</div>

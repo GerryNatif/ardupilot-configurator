@@ -1,0 +1,153 @@
+:host {
+	display: block;
+}
+
+.param-table {
+	display: grid;
+	gap: 1rem;
+}
+
+.param-table__empty {
+	margin: 0;
+	color: var(--text-muted);
+}
+
+.param-table__titlebar {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+}
+
+.param-table__badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 1.25rem;
+	height: 1.25rem;
+	padding: 0 0.35rem;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--surface-50) 80%, transparent);
+	color: var(--text);
+	font-size: 0.75rem;
+}
+
+.param-table__section-head {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 0.45rem;
+}
+
+.param-table__section-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.84rem;
+	color: var(--text-muted);
+}
+
+.param-table__table-wrap {
+	overflow: visible;
+}
+
+.param-table__table {
+  width: 100%;
+	table-layout: auto;
+  border-collapse: collapse; /* optionnel mais propre pour des lignes horizontales nettes */
+  border-spacing: 0;
+	overflow: visible;
+  background: var(--surface-100);
+}
+
+.param-table__table th:first-child,
+.param-table__table td:first-child {
+	width: 1%;
+	white-space: nowrap;
+}
+
+.param-table__table th,
+.param-table__table td {
+	padding: 0.45rem 0.8rem;
+  border-right: 0; /* retire les séparateurs verticaux */
+  border-bottom: 1px solid var(--surface-500); /* garde séparateurs horizontaux */
+  vertical-align: middle;
+	min-width: 0;
+	overflow-wrap: anywhere;
+}
+
+.param-table__table tr:last-child th,
+.param-table__table tr:last-child td {
+  border-bottom: 0; /* pas de ligne après la dernière ligne */
+}
+
+.param-table__table th:last-child,
+.param-table__table td:last-child {
+	border-right: 0;
+}
+
+.param-table__table thead th {
+	text-align: left;
+	font-size: 0.85rem;
+	font-weight: 700;
+	color: var(--text);
+	background: color-mix(in srgb, var(--surface-100) 82%, var(--surface-300));
+}
+
+.param-table__table tbody th,
+.param-table__table tbody td {
+	background: color-mix(in srgb, var(--surface-200) 92%, var(--surface-100));
+}
+
+.param-table__name {
+	width: auto;
+	font-size: 0.84rem;
+	letter-spacing: 0.02em;
+}
+
+.param-table__title {
+	min-width: 0;
+	font-weight: 500;
+}
+
+.param-table__description {
+	min-width: 0;
+	color: var(--text-muted);
+	font-size: 0.9rem;
+}
+
+.param-table__control-cell {
+	width: 1%;
+	white-space: nowrap;
+	padding-right: 0.45rem;
+}
+
+.param-table__input-with-unit {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+}
+
+.param-table__unit {
+	font-size: 0.78rem;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.param-table__table td.param-table__title {
+	padding-left: 0.45rem;
+}
+
+.param-table__help-col,
+.param-table__help-cell {
+	width: 1%;
+	text-align: right;
+	white-space: nowrap;
+	overflow: visible;
+	position: relative;
+}
+
+@media (max-width: 1055px) {
+	.param-table__table th,
+	.param-table__table td {
+		padding: 0.4rem 0.65rem;
+	}
+}

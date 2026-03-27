@@ -1,0 +1,19 @@
+<div id="sensor-status" class="sensor_state mode-connected">
+  <ul>
+    @for (sensor of sensors; track sensor.sensorClass) {
+      <li
+        [class]="sensor.sensorClass"
+        [attr.i18n_title]="sensor.titleKey"
+      >
+        <div
+          [class]="'sensoricon ' + sensor.iconClass"
+          [class.active]="sensor.isActive"
+          [class.active_fix]="sensor.isFix"
+          [attr.i18n]="sensor.shortKey"
+          [style.--icon-url]="'url(' + getIconPath(sensor.iconName) + ')'"
+        ></div>
+        <div class="sensor-label" [attr.i18n]="sensor.shortKey">{{ sensor.shortLabel }}</div>
+      </li>
+    }
+  </ul>
+</div>

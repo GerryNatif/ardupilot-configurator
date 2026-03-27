@@ -1,0 +1,28 @@
+<div class="component-list">
+	<label class="component-list__label" for="component-selector">Component List</label>
+	<select
+		id="component-selector"
+		class="component-list__select"
+		[value]="selectedId() ?? ''"
+		(change)="onSelect($event)"
+	>
+		@for (item of items(); track item.id) {
+			<option [value]="item.id">{{ formatLabel(item) }}</option>
+		}
+	</select>
+
+	<ul class="component-list__items" aria-label="Current model components">
+		@for (item of items(); track item.id) {
+			<li>
+				<app-card
+					[title]="item.label"
+					[details]="[
+						
+					]"
+					[class.is-selected]="isSelected(item.id)"
+					(click)="onItemClick(item.id); $event.stopPropagation()"
+				></app-card>
+			</li>
+		}
+	</ul>
+</div>

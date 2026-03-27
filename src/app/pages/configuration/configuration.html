@@ -1,0 +1,13 @@
+<app-title-page
+  title="Configuration"
+  actionLabel="Wiki"
+  actionUrl="https://ardupilot.org/copter/docs/common-downloading-and-analyzing-data-logs-in-mission-planner.html"
+/>
+<section class="grid">
+  @for (section of parameterSections(); track section.id) {
+    <app-param-table
+      [section]="section"
+      (valueChange)="onParameterValueChange($event)"
+    />
+  }
+</section>

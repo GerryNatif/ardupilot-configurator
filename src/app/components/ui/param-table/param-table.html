@@ -1,0 +1,108 @@
+<div class="param-table">
+  <app-gui-box [title]="section().title">
+    <div class="param-table__table-wrap">
+      <table class="param-table__table">
+        @if (showHeader()) {
+          <thead>
+            <tr>
+              <th scope="col">Valeur</th>
+              <th scope="col">Titre</th>
+
+              @if (display().showName) {
+                <th scope="col">Parametre</th>
+              }
+
+              @if (display().showDescription) {
+                <th scope="col">Description</th>
+              }
+
+              <th scope="col" class="param-table__help-col"></th>
+            </tr>
+          </thead>
+        }
+
+        <tbody>
+          @for (row of section().rows; track row.name) {
+            <tr>
+
+              <td class="param-table__control-cell">
+                @switch (row.type) {
+                  @case ('checkbox') {
+                    <input
+                      type="checkbox"
+                      [checked]="row.value === true"
+                      [disabled]="isRowDisabled(row)"
+                      [attr.aria-label]="row.title || row.name"
+                      (input)="onCheckboxChange(row, $event)"
+                    />
+                  }
+
+                  @case ('number') {
+                    <span class="param-table__input-with-unit">
+                      <input
+                        class="param-table__number-input"
+                        type="number"
+                        [value]="row.value"
+                        [min]="row.min ?? null"
+                        [max]="row.max ?? null"
+                        [step]="row.step ?? 1"
+                        [style.width]="getNumberInputWidth(row)"
+                        [disabled]="isRowDisabled(row)"
+                        [attr.aria-label]="row.title || row.name"
+                        (input)="onNumberChange(row, $event)"
+                      />
+                      @if (row.unit) {
+                        <span class="param-table__unit">{{ row.unit }}</span>
+                      }
+                    </span>
+                  }
+
+                  @case ('select') {
+                    <select
+                      class="param-table__select"
+                      [value]="row.unavailable ? '' : row.value"
+                      [disabled]="isRowDisabled(row)"
+                      [attr.aria-label]="row.title || row.name"
+                      (change)="onSelectChange(row, $event)"
+                    >
+                      @if (row.unavailable) {
+                        <option value="">Non synchronise</option>
+                      }
+
+                      @for (option of row.options ?? []; track option.value) {
+                        <option [value]="getOptionValue(option)" [selected]="isOptionSelected(row, option)">
+                          {{ option.label }}
+                        </option>
+                      }
+                    </select>
+                  }
+                }
+              </td>
+
+              <td class="param-table__title">{{ row.title || row.name }}</td>
+
+              @if (display().showName) {
+                <th scope="row" class="param-table__name">{{ row.name }}</th>
+              }
+
+              @if (display().showDescription) {
+                <td class="param-table__description">{{ row.description || '-' }}</td>
+              }
+
+              <td class="param-table__help-cell">
+                @if (display().showHelp && hasHelp(row)) {
+                  <app-info-bulle
+                    [title]="getHelpTitle(row)"
+                    [description]="getHelpDescription(row)"
+                    [items]="row.helpItems ?? []"
+                    ariaLabel="Aide parametre"
+                  />
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </app-gui-box>
+</div>

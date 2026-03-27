@@ -1,0 +1,16 @@
+:host {
+    display: block;
+    pointer-events: auto;
+}
+
+.content_toolbar {
+    width: fit-content;
+    background-color: var(--surface-300);
+    box-shadow: #0000001a 0 -.5rem .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .5rem;
+    padding: .75rem 1rem;
+    border-top-left-radius: 1.5rem;
+}

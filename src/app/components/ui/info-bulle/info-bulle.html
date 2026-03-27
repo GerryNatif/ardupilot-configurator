@@ -1,0 +1,41 @@
+<span
+	#host
+	class="info-bulle"
+	[class.info-bulle--below]="placeBelow()"
+	[class.info-bulle--below-left]="placeBelow() && placeBelowLeft()"
+	[class.info-bulle--below-right]="placeBelow() && !placeBelowLeft()"
+	[class.info-bulle--left]="placeLeft()"
+	(mouseenter)="updatePlacement()"
+	(focusin)="updatePlacement()"
+>
+	<button
+		type="button"
+		class="info-bulle__icon"
+		[attr.aria-label]="ariaLabel()"
+	>
+		{{ icon() }}
+	</button>
+
+	@if (hasContent()) {
+		<span #panel class="info-bulle__panel" role="tooltip">
+			@if (title()) {
+				<strong class="info-bulle__title">{{ title() }}</strong>
+			}
+
+			@if (description()) {
+				<span class="info-bulle__description">{{ description() }}</span>
+			}
+
+			@if (items().length > 0) {
+				<dl class="info-bulle__facts">
+					@for (item of items(); track item.label) {
+						<div class="info-bulle__fact-row">
+							<dt class="info-bulle__fact-label">{{ item.label }}</dt>
+							<dd class="info-bulle__fact-value">{{ item.value }}</dd>
+						</div>
+					}
+				</dl>
+			}
+		</span>
+	}
+</span>

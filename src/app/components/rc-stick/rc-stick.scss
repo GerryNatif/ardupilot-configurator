@@ -1,0 +1,40 @@
+.stick-container {
+  width: 150px;
+  height: 150px;
+}
+
+.stick-background {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--surface-500);
+  background-color: var(--surface-200);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stick-background::before,
+.stick-background::after {
+  content: '';
+  position: absolute;
+  background: #444;
+}
+
+.stick {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--primary-500);
+  border: 2px solid var(--primary-700);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+  transition: box-shadow 0.2s ease;
+
+  &:active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    cursor: grabbing;
+  }
+}

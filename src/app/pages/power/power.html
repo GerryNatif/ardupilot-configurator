@@ -1,0 +1,21 @@
+<app-title-page title="Alimentation" />
+
+<div class="container-fluid">
+  <div class="row gap-lg">
+    <div class="col-6 col-md-12">
+      <app-param-table
+        [section]="powerSection()"
+        [disabled]="!isConnected()"
+        (valueChange)="onPowerParameterValueChange($event)"
+      ></app-param-table>
+    </div>
+
+    <div class="col-6 col-md-12">
+      <app-param-table
+        [section]="logBitmaskSection()"
+        [disabled]="!isConnected()"
+        (valueChange)="onPowerParameterValueChange($event)"
+      ></app-param-table>
+    </div>
+  </div>
+</div>

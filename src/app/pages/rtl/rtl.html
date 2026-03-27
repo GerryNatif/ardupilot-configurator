@@ -1,0 +1,21 @@
+<app-title-page
+  title="Return to Launch"
+  actionLabel="Wiki"
+  actionUrl="https://ardupilot.org/copter/docs/rtl-mode.html"
+/>
+
+<div class="container-fluid">
+  <div class="row gap-lg">
+    <div class="col-6 col-md-12">
+      <app-param-table
+        [section]="failsafeSection()"
+        [disabled]="!isConnected()"
+        (valueChange)="onFailsafeParameterValueChange($event)"
+      ></app-param-table>
+    </div>
+
+    <div class="col-6 col-md-12">
+      <app-rtl-visualizer></app-rtl-visualizer>
+    </div>
+  </div>
+</div>

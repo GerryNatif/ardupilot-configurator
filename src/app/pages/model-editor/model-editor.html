@@ -1,0 +1,28 @@
+<app-title-page title="Model Editor" />
+
+<div class="container-fluid model-editor">
+	<div class="row gap-lg model-editor__row">
+		<div class="col-9 col-md-12 model-editor__canvas-column">
+			<div
+				#viewport
+				class="model-editor__canvas"
+				role="application"
+				aria-label="3D model editor canvas"
+				(pointerdown)="onViewportPointerDown($event)"
+				(pointermove)="onViewportPointerMove($event)"
+				(pointerup)="onViewportPointerUp()"
+				(pointerleave)="onViewportPointerUp()"
+			></div>
+		</div>
+
+		<div class="col-3 col-md-12 model-editor__side-column">
+			<app-gui-box class="gui-box--fill-height gui-box--title-offset" title="Component List">
+				<app-component-list
+					[items]="componentItems()"
+					[selectedId]="selectedEntityId()"
+					(selectItem)="onComponentSelect($event)"
+				></app-component-list>
+			</app-gui-box>
+		</div>
+	</div>
+</div>

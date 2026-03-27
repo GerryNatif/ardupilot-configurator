@@ -1,0 +1,42 @@
+<div class="card">
+  @if (image()) {
+    <div class="card__image">
+      <img [src]="image()" [alt]="title()" />
+    </div>
+  }
+
+  <div class="card__content">
+    <div class="card__header">
+      <div class="card__meta">
+        <h3 class="card__title">{{ title() }}</h3>
+        @if (tags().length) {
+          <div class="card__tags">
+            @for (tag of tags(); track tag.label) {
+              <span
+                class="card__tag"
+                [class.card__tag--primary]="tag.variant === 'primary'"
+                [class.card__tag--dark]="tag.variant === 'dark'"
+                [class.card__tag--default]="!tag.variant || tag.variant === 'default'"
+              >{{ tag.label }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="card__actions">
+        <ng-content select="[card-actions]"></ng-content>
+      </div>
+    </div>
+
+    @if (details().length) {
+      <dl class="card__details">
+        @for (detail of details(); track detail.label) {
+          <div class="card__detail-row">
+            <dt class="card__detail-label">{{ detail.label }}</dt>
+            <dd class="card__detail-value" [class.bold]="detail.bold">{{ detail.value }}</dd>
+          </div>
+        }
+      </dl>
+    }
+  </div>
+</div>

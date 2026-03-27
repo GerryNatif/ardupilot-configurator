@@ -1,0 +1,7 @@
+<section class="page-view">
+  <app-title-page title="PID Tuning" />
+  <app-pid-table
+    [draftValues]="draftValues()"
+    (draftChange)="onPidDraftChange($event)"
+  ></app-pid-table>
+</section>

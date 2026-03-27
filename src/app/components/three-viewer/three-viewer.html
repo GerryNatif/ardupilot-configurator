@@ -1,0 +1,24 @@
+<app-gui-box title="3D Viewer">
+	<section class="viewer-panel" aria-label="Visualisation 3D du vehicule">
+		<div #viewport class="viewer-canvas" role="img" aria-label="Modele 3D du drone oriente par les donnees gyroscopiques"></div>
+
+		<div class="viewer-hud" aria-label="Angles du vehicule">
+			<div class="hud-item">
+				<span class="hud-label">Roll</span>
+				<span class="hud-value">{{ rollText() }}</span>
+			</div>
+			<div class="hud-item">
+				<span class="hud-label">Pitch</span>
+				<span class="hud-value">{{ pitchText() }}</span>
+			</div>
+			<div class="hud-item">
+				<span class="hud-label">Yaw</span>
+				<span class="hud-value">{{ yawText() }}</span>
+			</div>
+		</div>
+
+		@if (statusMessage(); as message) {
+			<p class="viewer-status">{{ message }}</p>
+		}
+	</section>
+</app-gui-box>

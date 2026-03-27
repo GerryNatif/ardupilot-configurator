@@ -1,0 +1,71 @@
+<app-gui-box title="Vehicle Display">
+  <section class="vehicle-display">
+    <h3>Gyroscope / Attitude</h3>
+
+  <div class="att-grid">
+    <div class="att-item">
+      <span class="label">Roll</span>
+      <span class="value">{{ attitude().rollDeg == null ? '--' : (attitude().rollDeg | number:'1.1-1') + ' deg' }}</span>
+    </div>
+
+    <div class="att-item">
+      <span class="label">Pitch</span>
+      <span class="value">{{ attitude().pitchDeg == null ? '--' : (attitude().pitchDeg | number:'1.1-1') + ' deg' }}</span>
+    </div>
+
+    <div class="att-item">
+      <span class="label">Yaw</span>
+      <span class="value">{{ attitude().yawDeg == null ? '--' : (attitude().yawDeg | number:'1.1-1') + ' deg' }}</span>
+    </div>
+  </div>
+
+  <h3>Radio Commande</h3>
+
+  <div class="att-grid">
+    <div class="att-item">
+      <span class="label">Voies détectées</span>
+      <span class="value">{{ rc().channelCount ?? '--' }}</span>
+    </div>
+
+    <div class="att-item">
+      <span class="label">RSSI</span>
+      <span class="value">{{ rc().rssi ?? '--' }}</span>
+    </div>
+  </div>
+
+    <div class="att-grid">
+      <div class="att-item">
+        <span class="label">CH1</span>
+        <span class="value">{{ rcChannels()[0] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH2</span>
+        <span class="value">{{ rcChannels()[1] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH3</span>
+        <span class="value">{{ rcChannels()[2] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH4</span>
+        <span class="value">{{ rcChannels()[3] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH5</span>
+        <span class="value">{{ rcChannels()[4] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH6</span>
+        <span class="value">{{ rcChannels()[5] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH7</span>
+        <span class="value">{{ rcChannels()[6] ?? '--' }}</span>
+      </div>
+      <div class="att-item">
+        <span class="label">CH8</span>
+        <span class="value">{{ rcChannels()[7] ?? '--' }}</span>
+      </div>
+    </div>
+  </section>
+</app-gui-box>

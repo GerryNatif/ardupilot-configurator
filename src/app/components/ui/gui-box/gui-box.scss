@@ -1,0 +1,64 @@
+.gui_box {
+    border: 2px solid var(--surface-400);
+    border-radius: 0.75rem;
+    background-color: var(--surface-100);
+    height: fit-content;
+    box-sizing: border-box;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    padding-top: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.gui_box_titlebar {
+    color: #000;
+    background-color: var(--primary-500);
+    position: absolute;
+    font-size: 13px;
+    height: 1.75rem;
+    top: calc(1.75rem / -2);
+    left: 1rem;
+    padding: 0 0.75rem;
+    font-weight: 600;
+    display: flex;
+    gap: 0.5rem;
+    white-space: nowrap;
+    align-items: center;
+    overflow-x: hidden;
+    border-radius: 999px;
+}
+
+.spacer_box_title {
+    display: inline-flex;
+    align-items: center;
+    min-height: 100%;
+    line-height: 1;
+}
+
+.spacer_box {
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+}
+
+.gui_box {
+    background-color: var(--surface-200);
+}
+
+:host(.gui-box--fill-height) {
+    display: block;
+    height: 100%;
+}
+
+:host(.gui-box--fill-height) .gui_box {
+    height: 100%;
+    margin-top: 0;
+    overflow: visible;
+}
+
+:host(.gui-box--fill-height.gui-box--title-offset) .gui_box {
+    margin-top: 0.75rem;
+    height: calc(100% - 0.75rem);
+}

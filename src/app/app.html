@@ -1,0 +1,45 @@
+<div class="app-shell">
+  <div
+    class="app-shell__backdrop"
+    [class.visible]="isSidebarRevealed"
+    (click)="closeSidebar()"
+  ></div>
+
+  <header class="app-shell__header">
+    <app-header (menuToggle)="toggleSidebar()"></app-header>
+  </header>
+
+  <main class="app-shell__main">
+    <aside class="app-shell__sidebar" [class.reveal]="isSidebarRevealed">
+      <app-sidebar-navigation [mode]="sidebarMode()"></app-sidebar-navigation>
+    </aside>
+
+    <div class="app-shell__workspace">
+      <div class="app-shell__savebar">
+        <app-save-btn></app-save-btn>
+      </div>
+
+      <section class="app-shell__content">
+        <div class="app-shell__page-scroll">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-shell__footer">
+    <app-footer-bar></app-footer-bar>
+  </footer>
+
+  @if (errorDialog().open) {
+    <div class="app-error-dialog__backdrop" role="presentation" (click)="closeErrorDialog()">
+      <section class="app-error-dialog__card" role="dialog" aria-modal="true" [attr.aria-label]="errorDialog().titleKey | translate" (click)="$event.stopPropagation()">
+        <h2 class="app-error-dialog__title">{{ errorDialog().titleKey | translate }}</h2>
+        <p class="app-error-dialog__message">{{ errorDialog().messageKey | translate: errorDialog().messageParams }}</p>
+        <div class="app-error-dialog__actions">
+          <button type="button" class="regular-button" (click)="closeErrorDialog()">OK</button>
+        </div>
+      </section>
+    </div>
+  }
+</div>

@@ -1,0 +1,89 @@
+.rtl-vis__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+// --- Ground ---
+.rtl-ground {
+  stroke: var(--surface-600);
+  stroke-width: 2;
+}
+
+// --- Labels ---
+.rtl-label {
+  font-size: 12px;
+  fill: var(--text);
+  font-family: inherit;
+}
+.rtl-label--alt {
+  fill: var(--warning-600);
+  font-weight: 600;
+}
+.rtl-label--final {
+  fill: var(--warning-600, #16a34a);
+  font-weight: 600;
+}
+.rtl-label--climb {
+  fill: var(--warning-600, #d97706);
+  font-weight: 600;
+}
+.rtl-label--ground {
+  fill: var(--text-muted);
+}
+
+// --- Trajectoire ---
+.rtl-path {
+  fill: none;
+  stroke: var(--primary-500);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+// --- Flèches de direction ---
+.rtl-arrow {
+  fill: var(--primary-500);
+}
+
+// --- Corps des flèches (ligne) ---
+.rtl-arrow-line {
+  stroke: var(--primary-500);
+  stroke-width: 1.5;
+}
+
+
+// --- Contrôle altitude drone ---
+.rtl-vis__drone-alt-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.rtl-vis__drone-alt-unit {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+// --- Style unifié des éléments pointillés ---
+.rtl-dashed-ref {
+  color: #000;
+}
+
+line.rtl-dashed-ref,
+path.rtl-dashed-ref {
+  stroke: currentColor;
+}
+
+text.rtl-dashed-ref {
+  fill: currentColor;
+}
+
+// --- Trait vertical derrière le drone ---
+.rtl-line--drone-trail {
+  stroke: var(--accent-500, #a855f7);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}

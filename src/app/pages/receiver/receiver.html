@@ -1,0 +1,27 @@
+<app-title-page
+  title="Configuration"
+  actionLabel="Wiki"
+  actionUrl="https://ardupilot.org/copter/docs/common-downloading-and-analyzing-data-logs-in-mission-planner.html"
+/>
+<div class="container-fluid">
+  <div class="row gap-lg">
+    <div class="col-6 col-md-12">
+      <app-gui-box title="RC Sticks">
+        <div class="sticks-container">
+          <app-rc-stick title="RC Stick" [x]="0" [y]="0"></app-rc-stick>
+          <app-rc-stick title="RC Stick" [x]="0" [y]="0"></app-rc-stick>
+        </div>
+      </app-gui-box>
+    </div>
+
+    <div class="col-6 col-md-12">
+      <app-channel-gauge
+        title="Channel 1"
+        [value]="1500"
+        [min]="1000"
+        [max]="2000"
+        unit="us"
+      ></app-channel-gauge>
+    </div>
+  </div>
+</div>

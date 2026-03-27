@@ -1,0 +1,48 @@
+#sensor-status ul {
+    border-radius: .5rem;
+    background-color: var(--surface-300);
+    list-style: none;
+    display: flex;
+    padding: 0px;
+}
+li {
+    float: left;
+    height: 67px;
+    width: 3.5rem;
+    line-height: 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .8rem;
+}
+
+.sensoricon {
+    background-color: currentColor;
+    height: 30px;
+    margin-top: 3px;
+    width: 100%;
+    color: #8b8b8b;
+    text-align: center;
+    mask-image: var(--icon-url);
+    mask-repeat: no-repeat;
+    mask-position: center top;
+    mask-size: 30px;
+}
+
+.sensor-label {
+    min-height: 1rem;
+    line-height: 1;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sensoricon.active {
+    color: var(--text);
+}
+.sensoricon.active_fix {
+    color: var(--primary-400);
+}

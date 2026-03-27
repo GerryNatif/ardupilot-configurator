@@ -1,0 +1,135 @@
+<app-gui-box title="RTL Visualizer">
+    <svg
+      class="rtl-vis__svg"
+      [attr.viewBox]="'0 0 ' + viewBoxW + ' ' + viewBoxH"
+      aria-label="Schéma du comportement RTL"
+      role="img"
+    >
+      <!-- Sol -->
+      <line [attr.x1]="groundStartX" [attr.y1]="groundY" [attr.x2]="chartRightX" [attr.y2]="groundY" class="rtl-ground" />
+
+      <!-- Ligne altitude RTL -->
+      <line [attr.x1]="groundStartX" [attr.y1]="rtlY()" [attr.x2]="chartRightX" [attr.y2]="rtlY()" class="rtl-line rtl-line--alt rtl-dashed-ref" stroke-dasharray="6 6" />
+      <text [attr.x]="groundStartX - 8" [attr.y]="rtlY()" text-anchor="end" dominant-baseline="middle">RTL_ALT = {{ rtlAlt() == null ? '--' : (rtlAlt() | number:'1.0-0') + ' cm' }}</text>
+
+      <!-- Ligne altitude finale -->
+      @if (altFinalM() > 0.1) {
+        <line [attr.x1]="groundStartX" [attr.y1]="finalY()" [attr.x2]="chartRightX" [attr.y2]="finalY()" class="rtl-line rtl-line--final rtl-dashed-ref" stroke-dasharray="6 6" />
+        <text [attr.x]="groundStartX - 8" [attr.y]="finalY()" text-anchor="end" dominant-baseline="middle">ALT_FINAL = {{ rtlAltFinal() == null ? '--' : (rtlAltFinal() | number:'1.0-0') + ' cm' }}</text>
+      }
+
+      <!-- Ligne montée minimale -->
+      @if (climbMinM() > 0.1) {
+        <line [attr.x1]="groundStartX" [attr.y1]="climbMinY()" [attr.x2]="chartRightX" [attr.y2]="climbMinY()" class="rtl-line rtl-line--climb rtl-dashed-ref" stroke-dasharray="6 6" />
+        <text [attr.x]="groundStartX - 8" [attr.y]="climbMinY()" class="rtl-label rtl-label--climb rtl-dashed-ref" text-anchor="end" dominant-baseline="middle">CLIMB_MIN = {{ rtlClimbMin() == null ? '--' : (rtlClimbMin() | number:'1.0-0') + ' cm' }}</text>
+      }
+
+      <!-- Trajectoire du drone -->
+      <path [attr.d]="dronePath()" class="rtl-path" />
+
+      <!-- Trait horizontal pointillé aligné à l'altitude du drone -->
+      <line
+        [attr.x1]="groundStartX"
+        [attr.y1]="droneY()"
+        [attr.x2]="chartRightX"
+        [attr.y2]="droneY()"
+        class="rtl-line rtl-line--drone-trail rtl-dashed-ref"
+        stroke-dasharray="5 5"
+      />
+      <text [attr.x]="groundStartX - 8" [attr.y]="droneY()" class="rtl-label rtl-dashed-ref" text-anchor="end" dominant-baseline="middle">DRONE = {{ droneAltCm() | number:'1.0-0' }} cm</text>
+
+      <!-- Flèche de montée -->
+      @if (showFirstClimbSegment()) {
+        <polygon
+          [attr.points]="(takeoffX + 16) + ',' + climbTargetY() + ' ' + (takeoffX + 8) + ',' + (climbTargetY() + 12) + ' ' + (takeoffX + 24) + ',' + (climbTargetY() + 12)"
+          class="rtl-arrow"
+        />
+      }
+      <!-- Flèche de trajectoire: droite (suivant l'inclinaison du segment) -->
+      <polygon
+        [attr.points]="horizontalArrowPoints"
+        class="rtl-arrow"
+      />
+      <!-- Flèche de trajectoire: bas -->
+      <polygon
+        [attr.points]="homeX + ',' + finalY() + ' ' + (homeX - 8) + ',' + (finalY() - 12) + ' ' + (homeX + 8) + ',' + (finalY() - 12)"
+        class="rtl-arrow"
+      />
+      <!-- Icône drone (position selon altitude courante) -->
+      <image
+        href="/assets/icons/airplane-side.svg"
+        [attr.x]="takeoffX + 4"
+        [attr.y]="droneY() - 12"
+        width="24"
+        height="24"
+      />
+
+      <!-- Icône home -->
+      <image
+        href="/assets/icons/home-close.svg"
+        [attr.x]="homeX+12"
+        [attr.y]="groundY - 20"
+        width="24"
+        height="24"
+      />
+
+      <!-- Icône vitesse -->
+      <image
+        href="/assets/icons/speedometer.svg"
+        [attr.x]="homeX+12"
+        [attr.y]="groundY - 20"
+        width="24"
+        height="24"
+      />
+
+      <!-- Icône attente -->
+      <g>
+        <image
+          href="/assets/icons/clock-time-two-outline.svg"
+          [attr.x]="homeX - 12"
+          [attr.y]="climbConeY() - 40"
+          width="24"
+          height="24"
+        />
+        <text
+          [attr.x]="homeX + 16"
+          [attr.y]="climbConeY() - 28"
+          text-anchor="start"
+          dominant-baseline="middle"
+        >
+          {{ rtlLoitTime() == null ? '--' : rtlLoitTime() + ' ms' }}
+        </text>
+      </g>
+
+    </svg>
+
+  <div class="rtl-vis__drone-alt-ctrl">
+    <label for="droneAltInput">Altitude drone</label>
+    <input
+      id="droneAltInput"
+      type="number"
+      min="0"
+      [value]="droneAltCm()"
+      (input)="setDroneAlt($any($event.target).value)"
+    />
+    <span class="rtl-vis__drone-alt-unit">cm</span>
+  </div>
+  <div class="rtl-vis__drone-alt-ctrl">
+    <label for="droneDistInput">Distance drone</label>
+    <input
+      id="droneDistInput"
+      type="number"
+      min="0"
+      [value]="droneDistM()"
+      (input)="setDroneDist($any($event.target).value)"
+    />
+    <span class="rtl-vis__drone-alt-unit">m</span>
+  </div>
+  <div>
+    <ul>
+        <li>To use RTL, GPS lock needs to be achieved (Blue GPS LED and Blue APM LED on solid not blinking) before arming and takeoff to establish the home or launch position.</li>
+        <li>Landing and re-arming the copter will reset home, which is a great feature for flying at airfields.</li>
+        <li>If you get lock for the first time while flying, your home will be set at the location of lock.</li>
+    </ul>
+  </div>
+</app-gui-box>

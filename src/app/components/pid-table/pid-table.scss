@@ -1,0 +1,188 @@
+:host {
+  display: block;
+}
+
+#tab-pid_tuning {
+  width: 100%;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  border: 1px solid var(--surface-500);
+  border-radius: 0.85rem;
+  overflow: visible;
+  background: var(--surface-200);
+}
+
+#tab-pid_tuning th,
+#tab-pid_tuning td {
+  border-right: 1px solid var(--surface-500);
+  border-bottom: 1px solid var(--surface-500);
+}
+
+#tab-pid_tuning tr:last-child td,
+#tab-pid_tuning tr:last-child th {
+  border-bottom: 0;
+}
+
+#tab-pid_tuning th:last-child,
+#tab-pid_tuning td:last-child {
+  border-right: 0;
+}
+
+.pid_titlebar th {
+  height: 2rem;
+  padding: 0.3rem 0.55rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface-100) 82%, var(--surface-300));
+}
+
+.pid_titlebar th.name {
+  width: 20%;
+}
+
+.name-helpicon-flex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pid_titlebar2 th {
+  padding: 0.36rem 0.6rem;
+  text-align: left;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--text);
+  background: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--surface-300) 96%, var(--surface-100)) 0,
+    color-mix(in srgb, var(--surface-300) 96%, var(--surface-100)) 14px,
+    color-mix(in srgb, var(--surface-300) 88%, var(--surface-100)) 14px,
+    color-mix(in srgb, var(--surface-300) 88%, var(--surface-100)) 28px
+  );
+}
+
+.pid_mode,
+.float-left {
+  display: block;
+}
+
+#tab-pid_tuning tr[class='ROLL'] td,
+#tab-pid_tuning tr[class='PITCH'] td,
+#tab-pid_tuning tr[class='YAW'] td {
+  background: color-mix(in srgb, var(--surface-200) 92%, var(--surface-300));
+}
+
+#tab-pid_tuning td[class^='pid_'] {
+  width: 20%;
+  padding: 0.45rem 0.55rem;
+  color: #0e0e0e;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.pid_data {
+  position: relative;
+  overflow: visible;
+  padding: 0.24rem 0.45rem;
+  text-align: center;
+}
+
+.pid-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.pid-input-wrap--success {
+  cursor: help;
+}
+
+.pid-update-tooltip {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.35rem);
+  transform: translate(-50%, -4px);
+  z-index: 1600;
+  min-width: 9.5rem;
+  max-width: min(16rem, 52vw);
+  padding: 0.35rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--success-500) 55%, var(--surface-500));
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--success-500) 10%, var(--panel-bg));
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.pid-input-wrap--success:hover .pid-update-tooltip,
+.pid-input-wrap--success:focus-within .pid-update-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.pid-input-wrap input[type='number'] {
+  width: min(100%, 8.8rem);
+  height: 1.45rem;
+  padding: 0 0.45rem;
+  border: 1px solid var(--surface-500);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-50) 90%, var(--surface-300));
+  color: var(--text);
+  font-size: 0.95rem;
+  text-align: center;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.pid-input-wrap input[type='number'].pid-input--pending {
+  background: color-mix(in srgb, var(--primary-500) 24%, var(--surface-50));
+  border-color: color-mix(in srgb, var(--primary-500) 55%, var(--surface-500));
+}
+
+.pid-input-wrap input[type='number'].pid-input--success {
+  background: color-mix(in srgb, var(--success-500) 20%, var(--surface-50));
+  border-color: color-mix(in srgb, var(--success-500) 60%, var(--surface-500));
+}
+
+.pid-input-wrap input[type='number'].pid-input--error {
+  background: color-mix(in srgb, var(--error-500) 20%, var(--surface-50));
+  border-color: color-mix(in srgb, var(--error-500) 60%, var(--surface-500));
+}
+
+.pid-input-wrap input[type='number']:focus-visible {
+  outline: 1px solid var(--primary-500);
+  outline-offset: 0px;
+}
+
+.pid-input-wrap input[type='number']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pid-error {
+  margin: 0 0 0.5rem;
+  color: var(--error-600);
+  font-size: 0.85rem;
+}
+
+.pid_hint {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}

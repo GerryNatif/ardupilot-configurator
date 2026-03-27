@@ -1,0 +1,14 @@
+.footer-bar {
+	display: flex;
+    white-space: nowrap;
+    gap: .5rem;
+    bottom: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: .5rem 1rem;
+    background-color: var(--surface-300);
+}
+
+.footer-bar__status {
+	font-weight: 600;
+}

@@ -1,0 +1,26 @@
+.vehicle-display {
+  color: #1f2937;
+}
+
+.value {
+  color: #111827;
+  font-weight: 700;
+}
+
+.att-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.att-item {
+  padding: 8px;
+  border-radius: 6px;
+  background: #f4f6f8;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}

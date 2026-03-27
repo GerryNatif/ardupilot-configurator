@@ -1,0 +1,172 @@
+body {
+  background: var(--app-bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  margin: 0;
+}
+
+.page-view {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  font-weight: bold;
+  color: var(--primary-500);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--primary-400);
+  }
+}
+
+select, input[type=checkbox] {
+    cursor: pointer;
+}
+
+input:not([type='checkbox']),
+select,
+.select2-selection--single {
+    font-size: unset;
+    background-color: var(--surface-300);
+    border: 1px solid var(--surface-500);
+    color: var(--text);
+    padding: .25rem .5rem .25rem .25rem;
+    border-radius: .5rem ;
+    min-width: 4rem;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+input:not([type='checkbox']),
+select {
+  background-color: var(--surface-300);
+  border: 1px solid var(--surface-500);
+  color: var(--text);
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  border-radius: 0.5rem;
+  min-width: 4rem;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+input[type='checkbox'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2rem;
+  height: 1rem;
+  min-width: auto;
+  padding: 0;
+  margin: 0;
+  border-radius: 999px;
+  border: none;
+  background: var(--surface-500);
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+input[type='checkbox']::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0.05rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: #f4f4f5;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  transform: translateY(-50%);
+}
+
+input[type='checkbox']:checked {
+  background: var(--primary-500);
+}
+
+input[type='checkbox']:checked::after {
+  left: 1.05rem;
+}
+
+input[type='checkbox']:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--primary-500) 70%, #fff);
+  outline-offset: 2px;
+}
+
+input[type='checkbox']:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Button globale */
+.regular-button {
+  background-color: var(--primary-500);
+  border-radius: 3px;
+  border: 1px solid var(--primary-600);
+  color: #000;
+  font-weight: 700;
+  display: inline-block;
+  cursor: pointer;
+  transition: all ease .2s;
+  padding: 0 9px;
+  line-height: 28px;
+}
+
+.regular-button:hover {
+  background-color: var(--primary-400);
+}
+
+.grid {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+	align-items: start;
+}
+
+@media (max-width: 1055px) {
+	.grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Scrollbar globale */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-300) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  border: 2px solid var(--primary-500);
+}
+
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button:single-button {
+  display: none;
+  width: 0;
+  height: 0;
+}

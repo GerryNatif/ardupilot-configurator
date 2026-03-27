@@ -1,0 +1,74 @@
+:host {
+	display: block;
+	height: 100%;
+	min-height: 0;
+}
+
+.component-list {
+	display: grid;
+	height: 100%;
+	min-height: 0;
+	grid-template-rows: auto auto 1fr;
+	gap: 0.75rem;
+}
+
+.component-list__label {
+	font-weight: 600;
+	color: var(--text, #111827);
+}
+
+.component-list__select {
+	width: 100%;
+	border: 1px solid var(--border-color, #cbd5e1);
+	border-radius: 0.5rem;
+	background: var(--surface-100, #f8fafc);
+	color: var(--text, #111827);
+	padding: 0.5rem 0.6rem;
+}
+
+.component-list__items {
+	list-style: none;
+	display: grid;
+	gap: 0.45rem;
+	margin: 0;
+	padding: 0;
+	min-height: 0;
+	overflow: auto;
+}
+
+.component-list__item-btn {
+	width: 100%;
+	border: 1px solid var(--border-color, #cbd5e1);
+	border-radius: 0.55rem;
+	background: var(--surface-100, #f8fafc);
+	color: var(--text, #111827);
+	display: grid;
+	text-align: left;
+	gap: 0.2rem;
+	padding: 0.5rem 0.6rem;
+	cursor: pointer;
+	pointer-events: auto;
+	transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.component-list__item-btn:hover {
+	border-color: var(--primary-400, #38bdf8);
+}
+
+.component-list__item-btn.is-selected {
+	border-color: #ffffff;
+	background: color-mix(in oklab, var(--surface-100, #f8fafc) 78%, white 22%);
+	box-shadow:
+		0 0 0 2px #ffffff inset,
+		0 0 0 1px var(--primary-500, #0ea5e9),
+		0 0 14px rgba(255, 255, 255, 0.45);
+}
+
+.component-list__item-title {
+	font-weight: 600;
+}
+
+.component-list__item-meta {
+	font-size: 0.82rem;
+	color: var(--surface-700, #475569);
+}

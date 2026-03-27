@@ -1,0 +1,74 @@
+<!-- PID Table -->
+<div class="gui_box grey">
+  <table id="tab-pid_tuning">
+    <tbody>
+      <tr class="pid_titlebar">
+        <th class="name"></th>
+        @for (column of columns; track column.term) {
+          <th>
+            <div class="name-helpicon-flex">{{ column.label }}</div>
+          </th>
+        }
+      </tr>
+
+      <tr class="pid_titlebar2">
+        <th colspan="5">
+          <div class="pid_mode">
+            <div class="float-left">
+              @if (syncStatus().inProgress) {
+                Chargement des parametres...
+              } @else if (isConnected()) {
+                PID Basic (MAVLink)
+              } @else {
+                Connectez-vous pour lire les parametres PID
+              }
+            </div>
+          </div>
+        </th>
+      </tr>
+
+      @for (axis of axes; track axis.key) {
+        <tr [class]="axis.label">
+          <td [class]="axis.cssClass" [style.background-color]="axis.color">{{ axis.label }}</td>
+
+          @for (column of columns; track column.term) {
+            @let paramName = getParameterName(axis.key, column.term);
+            @let helpInfo = getParameterHelpInfo(paramName);
+            <td class="pid_data">
+
+              <div class="pid-input-wrap">
+                <input
+                  type="number"
+                  [class.pid-input--success]="isParameterDirty(paramName)"
+                  [step]="getParameterStep(paramName)"
+                  [min]="getParameterMin(paramName)"
+                  [max]="getParameterMax(paramName, column.max)"
+                  [value]="getParameterValue(paramName) ?? ''"
+                  [disabled]="!isConnected() || !isParameterAvailable(paramName) || isParameterPending(paramName)"
+                  (change)="onCommit(axis.key, column.term, $event)"
+                />
+
+                @if (helpInfo) {
+                  <app-info-bulle
+                    [title]="helpInfo.title"
+                    [description]="helpInfo.description"
+                    [items]="helpInfo.items"
+                    ariaLabel="Aide parametre"
+                  />
+                }
+              </div>
+            </td>
+          }
+        </tr>
+      }
+
+      @if (isConnected() && !isParameterAvailable('ATC_RAT_RLL_P')) {
+        <tr>
+          <td colspan="5" class="pid_hint">
+            Les parametres ATC_RAT_* ne sont pas encore disponibles dans la synchronisation MAVLink.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

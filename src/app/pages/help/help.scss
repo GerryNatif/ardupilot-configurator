@@ -1,0 +1,52 @@
+.help-link-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.help-link-item {
+  border-bottom: 1px dashed var(--surface-500);
+}
+
+.help-link-item:last-child {
+  border-bottom: none;
+}
+
+.help-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.25rem;
+  color: var(--primary-600);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--primary-400);
+  }
+}
+
+.help-link__icon {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.help-link__icon--github {
+  mask-image: url('/assets/icons/github.svg');
+  -webkit-mask-image: url('/assets/icons/github.svg');
+}
+
+.help-link__icon--web {
+  mask-image: url('/assets/icons/web.svg');
+  -webkit-mask-image: url('/assets/icons/web.svg');
+}

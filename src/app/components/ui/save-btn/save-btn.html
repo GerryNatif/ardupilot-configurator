@@ -1,0 +1,7 @@
+@if (state().visible) {
+    <div class="content_toolbar">
+        <button class="regular-button" [disabled]="state().disabled" (click)="onSave()">
+            {{ state().saving ? 'Sauvegarde...' : state().label }}
+        </button>
+    </div>
+}

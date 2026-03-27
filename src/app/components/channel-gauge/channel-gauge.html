@@ -1,0 +1,23 @@
+<div class="channel-gauge">
+    <div class="gauge-label">{{ title() }}</div>
+
+    <div class="gauge-wrapper">
+        <div
+            class="gauge"
+            role="progressbar"
+            [attr.aria-label]="title()"
+            [attr.aria-valuemin]="min()"
+            [attr.aria-valuemax]="max()"
+            [attr.aria-valuenow]="value()"
+        >
+            <div class="gauge-fill" [style.width.%]="fillPercent()" [style.background]="color()">
+                <span class="gauge-value">{{ value() }} {{ unit() }}</span>
+            </div>
+        </div>
+
+        <div class="gauge-bounds">
+            <span>{{ min() }} {{ unit() }}</span>
+            <span>{{ max() }} {{ unit() }}</span>
+        </div>
+    </div>
+</div>

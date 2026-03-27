@@ -1,0 +1,29 @@
+<div class="tab_container">
+  <div id="tabs">
+    <ul [class]="'mode-' + mode()">
+      @for (item of visibleItems(); track item.key) {
+        <li
+          [class]="item.key"
+          [class.active]="isActive(item)"
+          [attr.id]="item.id ?? null"
+        >
+          <a
+            href="#"
+            (click)="onItemClick(item, $event)"
+            class="sidebar-link"
+            [attr.aria-label]="(item.translationKey | translate) || item.label"
+            [title]="(item.translationKey | translate) || item.label"
+          >
+            <span
+              class="tabicon-image"
+              [style.--icon-url]="'url(' + getIconPath(item) + ')'"
+              aria-hidden="true"
+            ></span>
+            <span class="tab-label">{{ (item.translationKey | translate) || item.label }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+
