@@ -7,7 +7,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { Theme } from './core/services/theme';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
-import { GlobalErrorHandlerService } from './core/services/global-error-handler.service';
+import { GlobalErrorHandlerService } from './core/services/error/global-error-handler.service';
 
 const SUPPORTED_LANGUAGES = ['fr', 'en'] as const;
 const DEFAULT_LANGUAGE = 'fr';

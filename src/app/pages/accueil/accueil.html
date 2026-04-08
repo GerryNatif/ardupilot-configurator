@@ -1,7 +1,20 @@
-<section class="page-view">
-  <app-title-page title="Accueil" />
-  <div class="grid">
-    <app-vehicle-display></app-vehicle-display>
-    <app-three-viewer></app-three-viewer>
+<section>
+  <app-title-page
+    title=" Choix du Modèle"
+    actionLabel="Wiki"
+    actionUrl="https://ardupilot.org/copter/docs/rtl-mode.html"
+  />
+
+  <div class="container-fluid">
+    <div class="row gap-lg">
+      <div class="col-6 col-md-12">
+        <!-- on ajoute autant de filtres que de paramètres -->
+        <app-attribut-dropdown> </app-attribut-dropdown>
+      </div>
+      <div class="col-6 col-md-12">
+        <!-- on ajoute autant de filtres que de paramètres -->
+        <app-attribut-dropdown> </app-attribut-dropdown>
+      </div>
+    </div>
   </div>
 </section>

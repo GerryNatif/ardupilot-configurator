@@ -41,6 +41,14 @@ export class SidebarNavigation {
       routePath: '/'
     },
     {
+      key: 'tab_model_editor',
+      id: 'tab_model_editor',
+      translationKey: 'tabModelEditor',
+      label: 'Model Editor',
+      iconName: 'rotate-orbit.svg',
+      routePath: '/model-editor'
+    },
+    {
       key: 'tab_help',
       id: 'tab_help',
       translationKey: 'tabHelp',

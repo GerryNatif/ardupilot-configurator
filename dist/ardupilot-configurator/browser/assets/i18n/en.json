@@ -15,6 +15,7 @@
   "tabPresets": "Presets",
   "tabPidTuning": "PID tuning",
   "tabReceiver": "Receiver",
+  "tabModelEditor": "Model editor",
   "tabAuxiliary": "Auxiliary",
   "tabAdjustments": "Adjustments",
   "tabServos": "Servos",
@@ -29,5 +30,35 @@
   "tabOnboardLogging": "BlackBox",
   "tabCLI": "CLI",
   "tabBackups": "Backups",
-  "tabUserProfile": "User profile"
+  "tabUserProfile": "User profile",
+  "errors": {
+    "unexpected": "An unexpected error occurred.",
+    "titles": {
+      "generic": "Error",
+      "connect_failed": "Connection Error",
+      "disconnect_failed": "Disconnection Error",
+      "unexpected": "Unexpected Error"
+    },
+    "transport": {
+      "webserial_not_supported": "WebSerial API is not supported by this browser. Please use Chrome or Edge.",
+      "writer_unavailable": "Serial writer unavailable: the port is not connected.",
+      "no_port_selected": "No serial port selected.",
+      "port_not_readable": "Serial port is not readable or writable after opening."
+    },
+    "mavlink": {
+      "invalid_start_byte": "Outgoing frame is not MAVLink2 (expected start byte 0xFD = 253)."
+    },
+    "bootstrap": {
+      "no_heartbeat": "No HEARTBEAT received after connection — vehicle may be powered off or unreachable.",
+      "unknown_target": "MAVLink target is unknown — system ID has not been detected yet."
+    },
+    "facade": {
+      "target_not_detected": "Vehicle target not detected — system ID or component ID is missing.",
+      "param_or_target_unavailable": "Parameter or vehicle target is unavailable.",
+      "reconnect_after_reboot_failed": "Reconnection failed after autopilot reboot."
+    },
+    "http": {
+      "request_failed": "HTTP request failed with status {{status}} (URL: {{url}})."
+    }
+  }
 }

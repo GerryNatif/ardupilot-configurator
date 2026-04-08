@@ -1,12 +1,12 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { AppError } from '../../../core/services/app-error';
+import { AppError } from '../../../core/services/error/app-error';
 import {
   INITIAL_PARAMETER_METADATA_STATE,
   ParameterMetadata,
   ParameterMetadataState
 } from '../models/parameter-metadata.model';
 import { FirmwareFamily, VehicleIdentityState } from '../models/vehicle-identity.model';
-import { ParameterTranslationService } from '../../services/parameter-translation.service';
+import { ParameterTranslationService } from '../../services/param-translation/param-translation.service';
 
 interface RepositoryPayload {
   [section: string]: unknown;

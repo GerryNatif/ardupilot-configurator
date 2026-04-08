@@ -36,6 +36,14 @@
 	overflow: auto;
 }
 
+.component-list__item--draggable {
+	cursor: grab;
+}
+
+.component-list__item--draggable:active {
+	cursor: grabbing;
+}
+
 .component-list__item-btn {
 	width: 100%;
 	border: 1px solid var(--border-color, #cbd5e1);

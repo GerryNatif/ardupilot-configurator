@@ -1,0 +1,38 @@
+<div class="canvas-wrapper" #wrapperRef>
+  <canvas #canvasRef></canvas>
+
+  <!-- Context menu under selected object -->
+  <app-icon-menu
+    [transformMode]="transformMode()"
+    [contextMenuPos]="contextMenuPos()"
+    [deleteOnly]="isSymmetryMirrorSelected()"
+    [canCreateCircularRepeat]="canCreateCircularRepeat()"
+    [hasCircularRepeat]="hasCircularRepeat()"
+    [circularRepeatCount]="circularRepeatCount()"
+    [canCreateSymmetry]="canCreateSymmetry()"
+    [hasSymmetry]="hasSymmetryLink()"
+    [canToggleSymmetryPlane]="canToggleSymmetryPlane()"
+    [symmetryPlane]="currentSymmetryPlane()"
+    (transformModeChange)="setTransformMode($event)"
+    (duplicate)="duplicateSelected()"
+    (createCircularRepeat)="createCircularRepeatClone()"
+    (createSymmetry)="createSymmetryClone()"
+    (toggleSymmetryPlane)="toggleSelectedSymmetryPlane()"
+    (delete)="deleteSelected()"
+  />
+
+  <!-- Info overlay bottom-left -->
+  <div class="info-overlay">
+    @if (selectedObject()) {
+      <span class="info-chip selected">● {{ selectedObjectName() }}</span>
+    } @else {
+      <span class="info-chip">{{ objectCount() }} objet(s)</span>
+    }
+    <span class="info-chip">{{ transformModeLabel() }}</span>
+  </div>
+
+  <!-- Keyboard shortcuts hint -->
+  <div class="shortcuts-hint">
+    <span>G · R · S · Del · Clic vide = caméra</span>
+  </div>
+</div>

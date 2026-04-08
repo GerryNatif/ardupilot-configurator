@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Subscription, filter, map, share } from 'rxjs';
 import { SerialTransportService } from '../transport/serial-transport.service';
 import { MAVLink20Processor, mavlink20, Buffer as MavBuffer } from 'mavlink-browser';
-import { AppError } from '../../../core/services/app-error';
+import { AppError } from '../../../core/services/error/app-error';
 
 type AnyMavMessage = Record<string, unknown>;
 

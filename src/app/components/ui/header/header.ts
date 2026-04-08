@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { SensorsStatus } from "../sensors-status/sensors-status";
 import { computed, inject } from '@angular/core';
 import { DroneLinkFacade } from '../../../core/mavlink/facade/drone-link.facade';
-import { UiErrorService } from '../../../core/services/ui-error.service';
+import { UiErrorService } from '../../../core/services/error/ui-error.service';
 
 type VehicleType = 'copter' | 'plane' | 'rover' | 'boat' | 'sub' | 'station';
 
@@ -87,7 +87,8 @@ export class Header {
         await this.link.connect(Number(this.selectedBaud));
       }
     } catch (error) {
-      this.uiError.show(error, wasConnected ? 'errors.titles.disconnect_failed' : 'errors.titles.connect_failed');
+      //this.uiError.show(error, wasConnected ? 'errors.titles.disconnect_failed' : 'errors.titles.connect_failed');
+      console.error('Connection toggle failed:', error);
     }
   }
 

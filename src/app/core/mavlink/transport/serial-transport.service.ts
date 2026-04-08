@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LinkStatus } from '../models/telemetry.model';
 import { MavTransport } from './transport.types';
-import { AppError } from '../../../core/services/app-error';
+import { AppError } from '../../../core/services/error/app-error';
 
 /**
  * Service de transport MAVLink via Web Serial.

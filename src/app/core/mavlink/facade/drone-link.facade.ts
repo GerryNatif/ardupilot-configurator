@@ -3,7 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { ParameterMetadata } from '../models/parameter-metadata.model';
 import { LinkStatus, TelemetryState } from '../models/telemetry.model';
-import { AppError } from '../../../core/services/app-error';
+import { AppError } from '../../../core/services/error/app-error';
 import { ParameterStore } from '../state/parameter.store';
 import { ParameterMetadataService } from '../services/parameter-metadata.service';
 import { TelemetryStore } from '../state/telemetry.store';

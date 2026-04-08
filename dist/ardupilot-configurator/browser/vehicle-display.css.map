@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/vehicle-display/vehicle-display.scss"],
+  "sourcesContent": [".vehicle-display {\r\n  color: #1f2937;\r\n}\r\n\r\n.value {\r\n  color: #111827;\r\n  font-weight: 700;\r\n}\r\n\r\n.att-grid {\r\n  display: grid;\r\n  grid-template-columns: repeat(3, minmax(90px, 1fr));\r\n  gap: 10px;\r\n}\r\n\r\n.att-item {\r\n  padding: 8px;\r\n  border-radius: 6px;\r\n  background: #f4f6f8;\r\n}\r\n\r\n.label {\r\n  display: block;\r\n  font-size: 12px;\r\n  color: #666;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAA;AACE,SAAA;;AAGF,CAAA;AACE,SAAA;AACA,eAAA;;AAGF,CAAA;AACE,WAAA;AACA,yBAAA,OAAA,CAAA,EAAA,OAAA,IAAA,EAAA;AACA,OAAA;;AAGF,CAAA;AACE,WAAA;AACA,iBAAA;AACA,cAAA;;AAGF,CAAA;AACE,WAAA;AACA,aAAA;AACA,SAAA;;",
+  "names": []
+}

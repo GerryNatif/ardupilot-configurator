@@ -9,7 +9,7 @@ import { FooterBar as FooterBarComponent } from './components/ui/footer-bar/foot
 import { SaveBtn } from './components/ui/save-btn/save-btn';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
 import { Theme } from './core/services/theme';
-import { UiErrorService } from './core/services/ui-error.service';
+import { UiErrorService } from './core/services/error/ui-error.service';
 
 @Component({
   selector: 'app-root',

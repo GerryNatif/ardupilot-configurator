@@ -29,7 +29,7 @@ export const routes: Routes = [
   { path: 'pid-tuning', component: PidTuning, canActivate: [connectedGuard] },
   { path: 'modes', component: Modes, canActivate: [connectedGuard] },
   { path: 'rtl', component: Rtl, canActivate: [connectedGuard] },
-  { path: 'model-editor', component: ModelEditor, canActivate: [connectedGuard] },
+  { path: 'model-editor', component: ModelEditor },
   { path: 'motors', component: Motors, canActivate: [connectedGuard] },
   { path: 'gps', component: Gps, canActivate: [connectedGuard] },
   { path: 'osd', component: Osd, canActivate: [connectedGuard] },

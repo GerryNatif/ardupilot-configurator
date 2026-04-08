@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { PidTable, PidParameterDraftChange } from '../../components/pid-table/pid-table';
 import { TitlePage } from '../../components/ui/title-page/title-page';
 import { DroneLinkFacade } from '../../core/mavlink/facade/drone-link.facade';
-import { ParameterDraftSession } from '../../core/services/parameter-draft-session';
+import { ParameterDraftSession } from '../../core/services/param-page/parameter-draft-session';
 
 @Component({
   selector: 'app-pid-tuning',

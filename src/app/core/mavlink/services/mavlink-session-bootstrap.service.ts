@@ -3,7 +3,7 @@ import { firstValueFrom, race, timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { MavlinkParserService } from '../protocol/mavlink-parser.service';
-import { AppError } from '../../../core/services/app-error';
+import { AppError } from '../../../core/services/error/app-error';
 import { ParameterMetadataService } from './parameter-metadata.service';
 import { ParameterStore } from '../state/parameter.store';
 import { VehicleIdentityStore } from '../state/vehicle-identity.store';

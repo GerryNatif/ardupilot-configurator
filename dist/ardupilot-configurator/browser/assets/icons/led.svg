@@ -1,45 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
 <svg
    version="1.1"
    id="Capa_1"
    x="0px"
    y="0px"
-   viewBox="0 0 24.000001 24.000001"
-   enable-background="new 0 0 141.7 141.7"
-   xml:space="preserve"
-   sodipodi:docname="cf_icon_led_grey.svg"
-   width="24"
-   height="24"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   viewBox="0 0 24 24"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
-   id="defs1" /><sodipodi:namedview
-   id="namedview1"
-   pagecolor="#ffffff"
-   bordercolor="#000000"
-   borderopacity="0.25"
-   inkscape:showpageshadow="2"
-   inkscape:pageopacity="0.0"
-   inkscape:pagecheckerboard="0"
-   inkscape:deskcolor="#d1d1d1"
-   inkscape:zoom="5.5187016"
-   inkscape:cx="70.849998"
-   inkscape:cy="70.759397"
-   inkscape:window-width="1920"
-   inkscape:window-height="1017"
-   inkscape:window-x="-8"
-   inkscape:window-y="-8"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="g1" />
-<g
-   id="g1">
-	<path
-   id="path1"
+   xmlns:svg="http://www.w3.org/2000/svg">
+<path
    d="M 11.792186,1 C 9.056538,1 6.825678,3.2308602 6.825678,5.9665077 v 2.8006567 h 9.933015 V 5.9665077 C 16.758693,3.2308602 14.527833,1 11.792186,1 Z M 5.8,9.5326864 V 12.447201 H 18.208 V 9.5326864 Z m 2.263171,3.6962566 v 4.689813 h 0.01654 0.358113 v 3.859094 h 0.732762 v -3.859094 h 0.358112 v -4.689813 z m 5.878644,0 v 4.689813 h 0.01622 0.358112 v 5.080366 h 0.732764 v -5.080366 h 0.358431 v -4.689813 z"
    style="stroke-width:0.162837" />
-</g>
 </svg>

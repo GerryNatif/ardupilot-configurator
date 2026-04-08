@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/ui/attribut-dropdown/attribut-dropdown.scss"],
+  "sourcesContent": [".mat-mdc-chip .mdc-evolution-chip__action {\r\n  padding: 4px 4px 4px 4px;\r\n}"],
+  "mappings": ";AAAA,CAAA,aAAA,CAAA;AACE,WAAA,IAAA,IAAA,IAAA;;",
+  "names": []
+}

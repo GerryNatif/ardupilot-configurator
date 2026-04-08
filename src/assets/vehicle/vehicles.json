@@ -1,0 +1,484 @@
+[
+  {
+    "name": "QuadCopter X",
+    "frame_class": 1, "frame_type": 1,
+    "mav_type": 2, "mav_type_name": "MAV_TYPE_QUADROTOR",
+    "description": "Quatre moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "QuadCopter Plus",
+    "frame_class": 1, "frame_type": 0,
+    "mav_type": 2, "mav_type_name": "MAV_TYPE_QUADROTOR",
+    "description": "Quatre moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "QuadCopter H",
+    "frame_class": 1, "frame_type": 3,
+    "mav_type": 2, "mav_type_name": "MAV_TYPE_QUADROTOR",
+    "description": "Quatre moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "QuadCopter V",
+    "frame_class": 1, "frame_type": 2,
+    "mav_type": 2, "mav_type_name": "MAV_TYPE_QUADROTOR",
+    "description": "Quatre moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "HexaCopter",
+    "frame_class": 2, "frame_type": 1,
+    "mav_type": 13, "mav_type_name": "MAV_TYPE_HEXAROTOR",
+    "description": "Six moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Dodeca-HexaCopter",
+    "frame_class": 12, "frame_type": 1,
+    "mav_type": 29, "mav_type_name": "MAV_TYPE_DODECAROTOR",
+    "description": "Six paires fixes équidistantes de moteurs coaxiaux",
+    "simulated": true, "real_world": null, "code_base": "Copter"
+  },
+  {
+    "name": "OctaCopter",
+    "frame_class": 3, "frame_type": 1,
+    "mav_type": 14, "mav_type_name": "MAV_TYPE_OCTOROTOR",
+    "description": "Huit moteurs fixes équidistants",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "QuadX8",
+    "frame_class": 4, "frame_type": 1,
+    "mav_type": 14, "mav_type_name": "MAV_TYPE_OCTOROTOR",
+    "description": "4 paires fixes équidistantes de moteurs coaxiaux",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Y6",
+    "frame_class": 5, "frame_type": 10,
+    "mav_type": 13, "mav_type_name": "MAV_TYPE_HEXAROTOR",
+    "description": "3 paires fixes de moteurs coaxiaux disposés en Y",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "TriCopter",
+    "frame_class": 7, "frame_type": null,
+    "mav_type": 15, "mav_type_name": "MAV_TYPE_TRICOPTER",
+    "description": "3 moteurs de portance en Y, le moteur arrière s'inclinant pour fournir le lacet",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Petrol-Boosted TriCopter",
+    "frame_class": 7, "frame_type": null,
+    "mav_type": 15, "mav_type_name": "MAV_TYPE_TRICOPTER",
+    "description": "3 moteurs de portance en Y, le moteur arrière s'inclinant pour fournir le lacet, le moteur à essence fournissant la portance",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Bicopter",
+    "frame_class": 10, "frame_type": null,
+    "mav_type": 43, "mav_type_name": "MAV_TYPE_GENERIC_MULTIROTOR",
+    "description": "Moteurs doubles à poussée vectorielle",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "SingleCopter",
+    "frame_class": 8, "frame_type": null,
+    "mav_type": 43, "mav_type_name": "MAV_TYPE_GENERIC_MULTIROTOR",
+    "description": null,
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "CoaxCopter",
+    "frame_class": 9, "frame_type": null,
+    "mav_type": 3, "mav_type_name": "MAV_TYPE_COAXIAL",
+    "description": null,
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "CoaxCopter - Thrust-Vectored",
+    "frame_class": 9, "frame_type": null,
+    "mav_type": 3, "mav_type_name": "MAV_TYPE_COAXIAL",
+    "description": "Contrôle de tangage et de roulis par vectorisation de poussée indépendante des hélices coaxiales",
+    "simulated": false, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "6-DOF Multicopter",
+    "frame_class": 16, "frame_type": 1,
+    "mav_type": 43, "mav_type_name": "MAV_TYPE_GENERIC_MULTIROTOR",
+    "description": "6 degrés de liberté complets via 6 moteurs spécialement anglés",
+    "simulated": true, "simulated_note": "Realflight", "real_world": true, "code_base": "Copter/Scripting"
+  },
+  {
+    "name": "HeliQuad",
+    "frame_class": 13, "frame_type": null,
+    "mav_type": 2, "mav_type_name": "MAV_TYPE_QUADROTOR",
+    "description": "Quatre hélices à pas variable avec une seule valeur de poussée",
+    "simulated": false, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Helicopter",
+    "frame_class": 6, "frame_type": null,
+    "mav_type": 4, "mav_type_name": "MAV_TYPE_HELICOPTER",
+    "description": "Hélicoptère traditionnel",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Tandem Helicopter",
+    "frame_class": 11, "frame_type": null,
+    "mav_type": 4, "mav_type_name": "MAV_TYPE_HELICOPTER",
+    "description": "Deux rotors contrarotatifs au lieu d'un rotor principal et d'un rotor de queue",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "Synchropter",
+    "frame_class": 11, "frame_type": null,
+    "mav_type": 4, "mav_type_name": "MAV_TYPE_HELICOPTER",
+    "description": "Hélicoptère à double disque avec des pales imbriquées",
+    "simulated": true, "real_world": true, "code_base": "Copter"
+  },
+  {
+    "name": "AETR Plane - Tractor",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 1, "mav_type_name": "MAV_TYPE_FIXED_WING",
+    "description": "Avion tracteur traditionnel Aileron/Élévateur/Poussée/Gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 4,  "function": "Aileron" },
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle" },
+      { "output": 4, "function_id": 21, "function": "Rudder" }
+    ]
+  },
+  {
+    "name": "Plank Flying Wing",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 1, "mav_type_name": "MAV_TYPE_FIXED_WING",
+    "description": "Aile volante Plank, poussée différentielle pour le lacet",
+    "simulated": false, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 28, "function": "ElevonLeft" },
+      { "output": 2, "function_id": 29, "function": "ElevonRight" },
+      { "output": 3, "function_id": 70, "function": "Throttle Left" },
+      { "output": 4, "function_id": 70, "function": "Throttle Right" }
+    ]
+  },
+  {
+    "name": "AETR Plane - Pusher",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 1, "mav_type_name": "MAV_TYPE_FIXED_WING",
+    "description": "Avion propulseur traditionnel Aileron/Élévateur/Poussée/Gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 4,  "function": "Aileron" },
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle" },
+      { "output": 4, "function_id": 21, "function": "Rudder" }
+    ]
+  },
+  {
+    "name": "ETR Plane - Tractor",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 1, "mav_type_name": "MAV_TYPE_FIXED_WING",
+    "description": "Élévateur/Poussée/Gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle" },
+      { "output": 4, "function_id": 21, "function": "Rudder" }
+    ]
+  },
+  {
+    "name": "QuadPlane X4 Elevon Pusher",
+    "frame_class": null, "frame_type": 1,
+    "q_frame_class": 1, "q_frame_type": 1,
+    "mav_type": 22, "mav_type_name": "MAV_TYPE_VTOL_FIXEDROTOR",
+    "description": "Quatre moteurs de portance fixes ; gouvernes de vol élévons + gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 28, "function": "ElevonLeft" },
+      { "output": 2, "function_id": 29, "function": "ElevonRight" },
+      { "output": 3, "function_id": 70, "function": "Throttle (forward)" },
+      { "output": 4, "function_id": 21, "function": "Rudder" },
+      { "output": 5, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 6, "function_id": 34, "function": "Motor2 - Rear left (CCW)" },
+      { "output": 7, "function_id": 35, "function": "Motor3 - Front left (CW)" },
+      { "output": 8, "function_id": 36, "function": "Motor4 - Rear right (CW)" }
+    ]
+  },
+  {
+    "name": "Tilt-tricopter-vectored-yaw-QuadPlane",
+    "frame_class": null, "frame_type": null,
+    "q_frame_class": 7, "q_frame_type": null,
+    "mav_type": 21, "mav_type_name": "MAV_TYPE_VTOL_TILTROTOR",
+    "description": "Moteurs tracteurs et inclinables utilisés pour la portance, la poussée et le lacet",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 4,  "function": "Aileron" },
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle (forward)" },
+      { "output": 4, "function_id": 21, "function": "Rudder" },
+      { "output": 5, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 6, "function_id": 34, "function": "Motor2 - Front left (CW)" },
+      { "output": 8, "function_id": 36, "function": "Motor4 - Rear (CW)" },
+      { "output": 11, "function_id": 39, "function": "Motor7 - Tail Tilt Servo (yaw)" }
+    ]
+  },
+  {
+    "name": "QuadPlane",
+    "frame_class": null, "frame_type": 1,
+    "q_frame_class": 1, "q_frame_type": 1,
+    "mav_type": 22, "mav_type_name": "MAV_TYPE_VTOL_FIXEDROTOR",
+    "description": "Quatre moteurs de portance, soulevant un avion avec élévateur/aileron/gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 4,  "function": "Aileron" },
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle (forward)" },
+      { "output": 4, "function_id": 21, "function": "Rudder" },
+      { "output": 5, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 6, "function_id": 34, "function": "Motor2 - Rear left (CCW)" },
+      { "output": 7, "function_id": 35, "function": "Motor3 - Front left (CW)" },
+      { "output": 8, "function_id": 36, "function": "Motor4 - Rear right (CW)" }
+    ]
+  },
+  {
+    "name": "Tri-Tilt-Wing QuadPlane",
+    "frame_class": null, "frame_type": null,
+    "q_frame_class": 7, "q_frame_type": null,
+    "mav_type": 24, "mav_type_name": "MAV_TYPE_VTOL_TILTWING",
+    "description": "Plusieurs moteurs fixés à des ailes qui pivotent ; un seul moteur arrière pour la stabilité",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 4,  "function": "Aileron" },
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 4, "function_id": 21, "function": "Rudder" },
+      { "output": 5, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 6, "function_id": 34, "function": "Motor2 - Front left (CW)" },
+      { "output": 8, "function_id": 36, "function": "Motor4 - Rear (CW)" },
+      { "output": 11, "function_id": 39, "function": "Motor7 - Tail Tilt Servo (yaw)" }
+    ]
+  },
+  {
+    "name": "QuadPlane X8",
+    "frame_class": null, "frame_type": 1,
+    "q_frame_class": 4, "q_frame_type": 1,
+    "mav_type": 22, "mav_type_name": "MAV_TYPE_VTOL_FIXEDROTOR",
+    "description": "Quatre paires de moteurs de portance coaxiaux, soulevant un avion avec élévateur/aileron/gouverne",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1,  "function_id": 4,  "function": "Aileron" },
+      { "output": 2,  "function_id": 19, "function": "Elevator" },
+      { "output": 3,  "function_id": 70, "function": "Throttle (forward)" },
+      { "output": 4,  "function_id": 21, "function": "Rudder" },
+      { "output": 5,  "function_id": 33, "function": "Motor1 - Front right top (CCW)" },
+      { "output": 6,  "function_id": 34, "function": "Motor2 - Front left top (CW)" },
+      { "output": 7,  "function_id": 35, "function": "Motor3 - Rear left top (CCW)" },
+      { "output": 8,  "function_id": 36, "function": "Motor4 - Rear right top (CW)" },
+      { "output": 9,  "function_id": 37, "function": "Motor5 - Front left bottom (CCW)" },
+      { "output": 10, "function_id": 38, "function": "Motor6 - Front right bottom (CW)" },
+      { "output": 11, "function_id": 39, "function": "Motor7 - Rear right bottom (CCW)" },
+      { "output": 12, "function_id": 40, "function": "Motor8 - Rear left bottom (CW)" }
+    ]
+  },
+  {
+    "name": "QuadPlane Delta Y6",
+    "frame_class": null, "frame_type": 10,
+    "q_frame_class": 5, "q_frame_type": 10,
+    "mav_type": 22, "mav_type_name": "MAV_TYPE_VTOL_FIXEDROTOR",
+    "description": "3 paires de moteurs coaxiaux en configuration Y6 soulevant un avion à élévons",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1,  "function_id": 28, "function": "ElevonLeft" },
+      { "output": 2,  "function_id": 29, "function": "ElevonRight" },
+      { "output": 3,  "function_id": 70, "function": "Throttle (forward)" },
+      { "output": 4,  "function_id": 21, "function": "Rudder" },
+      { "output": 5,  "function_id": 33, "function": "Motor1 - Front right top (CCW)" },
+      { "output": 6,  "function_id": 34, "function": "Motor2 - Front right bottom (CW)" },
+      { "output": 7,  "function_id": 35, "function": "Motor3 - Front left top (CW)" },
+      { "output": 8,  "function_id": 36, "function": "Motor4 - Front left bottom (CCW)" },
+      { "output": 9,  "function_id": 37, "function": "Motor5 - Rear top (CCW)" },
+      { "output": 10, "function_id": 38, "function": "Motor6 - Rear bottom (CW)" }
+    ]
+  },
+  {
+    "name": "QuadPlane Delta Y3",
+    "frame_class": null, "frame_type": 19,
+    "q_frame_class": 5, "q_frame_type": 11,
+    "mav_type": 21, "mav_type_name": "MAV_TYPE_VTOL_TILTROTOR",
+    "description": "3 moteurs en configuration Y3 soulevant un avion à élévons, tous les moteurs s'inclinant pour le vol vers l'avant",
+    "simulated": false, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 28, "function": "ElevonLeft" },
+      { "output": 2, "function_id": 29, "function": "ElevonRight" },
+      { "output": 5, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 6, "function_id": 34, "function": "Motor2 - Front left (CW)" },
+      { "output": 7, "function_id": 35, "function": "Motor3 - Rear (CW)" }
+    ]
+  },
+  {
+    "name": "Elevon Tail-Sitter",
+    "frame_class": null, "frame_type": null,
+    "q_frame_class": 10, "q_frame_type": null,
+    "mav_type": 23, "mav_type_name": "MAV_TYPE_VTOL_TAILSITTER",
+    "description": "Poussée avant fixe avec surfaces élévons assurant le contrôle d'attitude en modes hélicoptère et avion",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 28, "function": "ElevonLeft" },
+      { "output": 2, "function_id": 29, "function": "ElevonRight" },
+      { "output": 3, "function_id": 70, "function": "Throttle (motor)" }
+    ]
+  },
+  {
+    "name": "Thrust-Vectored Tail-Sitter",
+    "frame_class": null, "frame_type": null,
+    "q_frame_class": 10, "q_frame_type": null,
+    "mav_type": 19, "mav_type_name": "MAV_TYPE_VTOL_TAILSITTER_DUOROTOR",
+    "description": "Deux moteurs tracteurs et inclinables sur une aile, transitions de mode hélicoptère/avion",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 75, "function": "TiltMotorLeft" },
+      { "output": 2, "function_id": 76, "function": "TiltMotorRight" },
+      { "output": 3, "function_id": 70, "function": "Throttle Left (motor)" },
+      { "output": 4, "function_id": 70, "function": "Throttle Right (motor)" }
+    ]
+  },
+  {
+    "name": "Thrust-Vectored Belly-Sitter",
+    "frame_class": null, "frame_type": null,
+    "q_frame_class": 10, "q_frame_type": null,
+    "mav_type": 19, "mav_type_name": "MAV_TYPE_VTOL_TAILSITTER_DUOROTOR",
+    "description": "Deux moteurs tracteurs et inclinables sur une aile, transitions de mode hélicoptère/avion",
+    "simulated": true, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 75, "function": "TiltMotorLeft" },
+      { "output": 2, "function_id": 76, "function": "TiltMotorRight" },
+      { "output": 3, "function_id": 70, "function": "Throttle Left (motor)" },
+      { "output": 4, "function_id": 70, "function": "Throttle Right (motor)" }
+    ]
+  },
+  {
+    "name": "Quad Motor Tailsitter",
+    "frame_class": null, "frame_type": 1,
+    "q_frame_class": 10, "q_frame_type": null,
+    "mav_type": 20, "mav_type_name": "MAV_TYPE_VTOL_TAILSITTER_QUADROTOR",
+    "description": "Quatre moteurs sur une aile, transitions de mode hélicoptère/avion",
+    "simulated": true, "simulated_note": "Cadre X biplan - démo QACRO cadre X biplan - Cadre Plus",
+    "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 1, "function_id": 33, "function": "Motor1 - Front right (CCW)" },
+      { "output": 2, "function_id": 34, "function": "Motor2 - Rear left (CCW)" },
+      { "output": 3, "function_id": 35, "function": "Motor3 - Front left (CW)" },
+      { "output": 4, "function_id": 36, "function": "Motor4 - Rear right (CW)" }
+    ]
+  },
+  {
+    "name": "GyroCopter",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 47, "mav_type_name": "MAV_TYPE_VTOL_GYRODYNE",
+    "description": "Disque de rotor principal non motorisé, hélice propulsive, gouverne et élévateur",
+    "simulated": null, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 2, "function_id": 19, "function": "Elevator" },
+      { "output": 3, "function_id": 70, "function": "Throttle (propulsion)" },
+      { "output": 4, "function_id": 21, "function": "Rudder" }
+    ]
+  },
+  {
+    "name": "Ornithopter",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 16, "mav_type_name": "MAV_TYPE_FLAPPING_WING",
+    "description": "Ornithoptère - ailes battantes + gouverne",
+    "simulated": false, "real_world": true, "code_base": "Plane",
+    "servos": [
+      { "output": 3, "function_id": 70, "function": "Throttle (flapping)" },
+      { "output": 4, "function_id": 21, "function": "Rudder" }
+    ]
+  },
+  {
+    "name": "Ackerman Steering Rover",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 10, "mav_type_name": "MAV_TYPE_GROUND_ROVER",
+    "description": "Roues directrices pivotantes",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Skid-Steer Rover",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 10, "mav_type_name": "MAV_TYPE_GROUND_ROVER",
+    "description": "Entraîné par chenilles",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Skid-Steer Legged Rover",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 10, "mav_type_name": "MAV_TYPE_GROUND_ROVER",
+    "description": "Strandbeast",
+    "simulated": false, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Skid-Steer Boat",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 11, "mav_type_name": "MAV_TYPE_SURFACE_BOAT",
+    "description": "Deux hélices fixes",
+    "simulated": true, "simulated_note": "Gazebo", "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Air-Boat",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 11, "mav_type_name": "MAV_TYPE_SURFACE_BOAT",
+    "description": "Ventilateur à poussée vectorielle",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Fan-Car",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 10, "mav_type_name": "MAV_TYPE_GROUND_ROVER",
+    "description": "Chariot de peinture à poussée vectorielle",
+    "simulated": true, "simulated_note": "Gazebo", "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Boat",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 11, "mav_type_name": "MAV_TYPE_SURFACE_BOAT",
+    "description": "Poussée par une seule hélice, gouvernail pour le lacet",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Sailboat",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 11, "mav_type_name": "MAV_TYPE_SURFACE_BOAT",
+    "description": "Bateau avec gouvernail et voile contrôlée via la grand-voile",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Balance Bot",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 10, "mav_type_name": "MAV_TYPE_GROUND_ROVER",
+    "description": "Plateforme à roues fondamentalement instable activement maintenue en équilibre par le pilote automatique",
+    "simulated": true, "real_world": true, "code_base": "Rover"
+  },
+  {
+    "name": "Vectored Sub",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 12, "mav_type_name": "MAV_TYPE_SUBMARINE",
+    "description": "Propulseurs avec 6-DOF",
+    "simulated": true, "real_world": true, "code_base": "Sub"
+  },
+  {
+    "name": "AntennaTracker",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 5, "mav_type_name": "MAV_TYPE_ANTENNA_TRACKER",
+    "description": "Actionneurs continus Pan/Tilt pilotés par PWM",
+    "simulated": true, "real_world": true, "code_base": "Tracker"
+  },
+  {
+    "name": "Blimp (flapping fin)",
+    "frame_class": null, "frame_type": null,
+    "mav_type": 7, "mav_type_name": "MAV_TYPE_AIRSHIP",
+    "description": "Dirigeables à ailerons battants",
+    "simulated": null, "real_world": null, "code_base": null
+  }
+]

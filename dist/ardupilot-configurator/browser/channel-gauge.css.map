@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/channel-gauge/channel-gauge.scss"],
+  "sourcesContent": [".channel-gauge {\r\n  display: grid;\r\n  grid-template-columns: minmax(120px, auto) 1fr;\r\n  align-items: center;\r\n  gap: 0.75rem;\r\n}\r\n\r\n.gauge-label {\r\n  font-weight: 600;\r\n  color: #1f2937;\r\n}\r\n\r\n.gauge-wrapper {\r\n  display: grid;\r\n  gap: 0.375rem;\r\n}\r\n\r\n.gauge {\r\n  width: 100%;\r\n  height: 1rem;\r\n  border: 1px solid var(--surface-500);\r\n  background-color: var(--surface-200);\r\n  border-radius: 0.3rem;\r\n  overflow: hidden;\r\n}\r\n\r\n.gauge-fill {\r\n  height: 100%;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: flex-start;\r\n  padding-inline: 0.625rem;\r\n  color: white;\r\n  font-weight: 600;\r\n  transition: width 0.3s ease;\r\n  min-width: fit-content;\r\n}\r\n\r\n.gauge-value {\r\n  pointer-events: none;\r\n  white-space: nowrap;\r\n}\r\n\r\n.gauge-bounds {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  font-size: 0.75rem;\r\n  color: #6b7280;\r\n}"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,yBAAA,OAAA,KAAA,EAAA,MAAA;AACA,eAAA;AACA,OAAA;;AAGF,CAAA;AACE,eAAA;AACA,SAAA;;AAGF,CAAA;AACE,WAAA;AACA,OAAA;;AAGF,CAAA;AACE,SAAA;AACA,UAAA;AACA,UAAA,IAAA,MAAA,IAAA;AACA,oBAAA,IAAA;AACA,iBAAA;AACA,YAAA;;AAGF,CAAA;AACE,UAAA;AACA,WAAA;AACA,eAAA;AACA,mBAAA;AACA,kBAAA;AACA,SAAA;AACA,eAAA;AACA,cAAA,MAAA,KAAA;AACA,aAAA;;AAGF,CAAA;AACE,kBAAA;AACA,eAAA;;AAGF,CAAA;AACE,WAAA;AACA,mBAAA;AACA,aAAA;AACA,SAAA;;",
+  "names": []
+}

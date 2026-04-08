@@ -41,7 +41,7 @@
     },
     "transport": {
       "webserial_not_supported": "L'API WebSerial n'est pas supportée par ce navigateur. Veuillez utiliser Chrome ou Edge.",
-      "writer_unavailable": "Écrivain série indisponible : le port n'est pas connecté.",
+      "writer_unavailable": "Écriture sur le port série indisponible : le port n'est pas connecté.",
       "no_port_selected": "Aucun port série sélectionné.",
       "port_not_readable": "Le port série n'est pas lisible ou inscriptible après ouverture."
     },

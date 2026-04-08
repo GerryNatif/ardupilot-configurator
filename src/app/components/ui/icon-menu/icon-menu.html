@@ -1,0 +1,69 @@
+@if (contextMenuPos()) {
+  <div
+    class="context-menu"
+    [style.left.px]="contextMenuPos()!.x"
+    [style.top.px]="contextMenuPos()!.y"
+  >
+    @if (!deleteOnly()) {
+      <button
+        class="ctx-btn"
+        [class.active]="transformMode() === 'translate'"
+        title="Déplacer (G)"
+        (click)="setTransformMode('translate')"
+      >
+        <img [src]="icons.translate" alt="Déplacer" />
+      </button>
+      <button
+        class="ctx-btn"
+        [class.active]="transformMode() === 'rotate'"
+        title="Rotation (R)"
+        (click)="setTransformMode('rotate')"
+      >
+        <img [src]="icons.rotate" alt="Rotation" />
+      </button>
+      <button
+        class="ctx-btn"
+        [class.active]="transformMode() === 'scale'"
+        title="Redimensionner (S)"
+        (click)="setTransformMode('scale')"
+      >
+        <img [src]="icons.scale" alt="Redimensionner" />
+      </button>
+      <div class="ctx-separator"></div>
+      <button class="ctx-btn" title="Dupliquer" (click)="onDuplicate()">
+        <img [src]="icons.duplicate" alt="Dupliquer" />
+      </button>
+      @if (canCreateCircularRepeat()) {
+        <button
+          class="ctx-btn"
+          [class.active]="hasCircularRepeat()"
+          [title]="hasCircularRepeat() ? 'Ajouter une répétition circulaire' : 'Créer répétition circulaire'"
+          (click)="onCreateCircularRepeat()"
+        >
+          <img [src]="icons.circularRepeat" alt="Répétition circulaire" />
+          <span class="repeat-count">{{ circularRepeatCount() }}</span>
+        </button>
+      }
+      @if (canCreateSymmetry()) {
+        <button
+          class="ctx-btn"
+          [class.active]="hasSymmetry()"
+          [title]="hasSymmetry() ? 'Symétrie liée active' : 'Créer symétrie'"
+          (click)="onCreateSymmetry()"
+        >
+          <img [src]="icons.symmetry" alt="Créer symétrie" />
+        </button>
+      }
+      @if (canToggleSymmetryPlane()) {
+        <button class="ctx-btn" title="Plan: {{ symmetryPlane() === 'front' ? 'face' : 'droite' }}" (click)="onToggleSymmetryPlane()">
+          <img [src]="icons.symmetryPlane" alt="Changer plan de symétrie" />
+          <span class="plane-label">{{ symmetryPlane() === 'front' ? 'F' : 'D' }}</span>
+        </button>
+      }
+      <div class="ctx-separator"></div>
+    }
+    <button class="ctx-btn danger" title="Supprimer (Del)" (click)="onDelete()">
+      <img [src]="icons.delete" alt="Supprimer" />
+    </button>
+  </div>
+}

@@ -55,7 +55,12 @@
 :host(.gui-box--fill-height) .gui_box {
     height: 100%;
     margin-top: 0;
-    overflow: visible;
+    overflow: hidden;
+}
+
+:host(.gui-box--fill-height) .spacer_box {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 :host(.gui-box--fill-height.gui-box--title-offset) .gui_box {

@@ -3,25 +3,62 @@
 <div class="container-fluid model-editor">
 	<div class="row gap-lg model-editor__row">
 		<div class="col-9 col-md-12 model-editor__canvas-column">
-			<div
-				#viewport
+			<app-threejs-canvas
 				class="model-editor__canvas"
-				role="application"
-				aria-label="3D model editor canvas"
-				(pointerdown)="onViewportPointerDown($event)"
-				(pointermove)="onViewportPointerMove($event)"
-				(pointerup)="onViewportPointerUp()"
-				(pointerleave)="onViewportPointerUp()"
-			></div>
+				(selectedShapeChange)="onSelectedShapeChange($event)"
+				(dragover)="onCanvasDragOver($event)"
+				(drop)="onCanvasDrop($event)"
+			></app-threejs-canvas>
 		</div>
 
 		<div class="col-3 col-md-12 model-editor__side-column">
-			<app-gui-box class="gui-box--fill-height gui-box--title-offset" title="Component List">
-				<app-component-list
-					[items]="componentItems()"
-					[selectedId]="selectedEntityId()"
-					(selectItem)="onComponentSelect($event)"
-				></app-component-list>
+			<app-gui-box
+				class="gui-box--fill-height gui-box--title-offset"
+				[title]="selectedShape() ? 'Profil' : 'Composants'"
+			>
+				@if (selectedShape(); as shape) {
+					<div class="shape-panel">
+						<p class="shape-panel__title">{{ shape.name }}</p>
+						<p class="shape-panel__subtitle">Type: {{ shape.type }}</p>
+
+						@for (controlGroup of shapeControlGroups(); track controlGroup.group) {
+							<div class="shape-group">
+								<h4 class="shape-group__title">{{ controlGroup.group }}</h4>
+								@for (control of controlGroup.controls; track control.key) {
+									<label class="shape-param">
+										<span>
+											{{ control.label }}
+											<strong>{{ formatParamValue(getParamValue(shape, control), control) }}</strong>
+										</span>
+										@if (control.control === 'range') {
+											<input
+												type="range"
+												[min]="control.min ?? 0"
+												[max]="control.max ?? 100"
+												[step]="control.step ?? 1"
+												[value]="getParamValue(shape, control)"
+												(input)="updateShapeParam(control, $event)"
+											/>
+										} @else {
+											<input
+												type="checkbox"
+												[checked]="getParamValue(shape, control)"
+												(change)="updateShapeParam(control, $event)"
+											/>
+										}
+									</label>
+								}
+							</div>
+						}
+					</div>
+				} @else {
+					<app-component-list
+						[items]="shapeListItems"
+						[selectedId]="selectedShapeId()"
+						[enableDrag]="true"
+						(selectItem)="onShapeAddFromList($event)"
+					></app-component-list>
+				}
 			</app-gui-box>
 		</div>
 	</div>
