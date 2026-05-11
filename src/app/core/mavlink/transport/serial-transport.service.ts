@@ -155,25 +155,7 @@ export class SerialTransportService implements MavTransport {
       // Ignore les erreurs lors de l'annulation du lecteur
     }
 
-    // Libère les verrous sur le lecteur et l'écrivain
-    this.reader?.releaseLock();
-    this.writer?.releaseLock();
-
-    this.reader = null;
-    this.writer = null;
-
-    // Ferme le port série
-    try {
-      if (this.port) {
-        await this.port.close();
-      }
-    } catch {
-      // Ignore les erreurs de fermeture pour maintenir la cohérence de l'état UI
-    } finally {
-      this.port = null;
-      // Met le statut à "déconnecté"
-      this.statusSubject.next('disconnected');
-    }
+    await this.cleanupTransportState(true);
   }
 
   // Envoie des données vers le port série
@@ -238,41 +220,45 @@ export class SerialTransportService implements MavTransport {
         }
       }
     } finally {
-      // Nettoyage systématique des ressources même en cas d'erreur
-      this.readLoopRunning = false;
+      await this.cleanupTransportState(false);
+    }
+  }
 
-      // Libère le verrou du lecteur (gère les erreurs silencieusement)
-      try {
-        this.reader?.releaseLock();
-      } catch {
-        // Ignore les erreurs de libération
+  private async cleanupTransportState(forceStatusUpdate: boolean): Promise<void> {
+    // Nettoyage systématique des ressources même en cas d'erreur
+    this.readLoopRunning = false;
+
+    // Libère le verrou du lecteur (gère les erreurs silencieusement)
+    try {
+      this.reader?.releaseLock();
+    } catch {
+      // Ignore les erreurs de libération
+    }
+
+    // Libère le verrou de l'écrivain (gère les erreurs silencieusement)
+    try {
+      this.writer?.releaseLock();
+    } catch {
+      // Ignore les erreurs de libération
+    }
+
+    this.reader = null;
+    this.writer = null;
+
+    // Ferme le port série
+    try {
+      if (this.port) {
+        await this.port.close();
       }
+    } catch {
+      // Ignore les erreurs de fermeture
+    } finally {
+      this.port = null;
+    }
 
-      // Libère le verrou de l'écrivain (gère les erreurs silencieusement)
-      try {
-        this.writer?.releaseLock();
-      } catch {
-        // Ignore les erreurs de libération
-      }
-
-      this.reader = null;
-      this.writer = null;
-
-      // Ferme le port série
-      try {
-        if (this.port) {
-          await this.port.close();
-        }
-      } catch {
-        // Ignore les erreurs de fermeture
-      } finally {
-        this.port = null;
-      }
-
-      // S'assure que le statut est à "déconnecté"
-      if (this.statusSubject.value !== 'disconnected') {
-        this.statusSubject.next('disconnected');
-      }
+    // Met le statut à "déconnecté" en sortie de cleanup.
+    if (forceStatusUpdate || this.statusSubject.value !== 'disconnected') {
+      this.statusSubject.next('disconnected');
     }
   }
 }
