@@ -133,15 +133,22 @@ const COPTER_TYPES = new Set<number>([
 
 const PLANE_TYPES = new Set<number>([
   MAV_TYPE.FIXED_WING,
+  MAV_TYPE.FLAPPING_WING,
   MAV_TYPE.VTOL_TAILSITTER_DUOROTOR,
   MAV_TYPE.VTOL_TAILSITTER_QUADROTOR,
-  MAV_TYPE.VTOL_TILTROTOR
+  MAV_TYPE.VTOL_TILTROTOR,
+  MAV_TYPE.VTOL_FIXEDROTOR,
+  MAV_TYPE.VTOL_TAILSITTER,
+  MAV_TYPE.VTOL_TILTWING,
+  MAV_TYPE.VTOL_RESERVED5,
 ]);
+
 
 export function isArduPilotAutopilot(autopilot: number | null): boolean {
   return autopilot === MAV_AUTOPILOT_ARDUPILOTMEGA;
 }
 
+//Type de véhicule pour l'application, dérivé du type MAVLink 
 export function mapVehicleKind(mavType: number | null): VehicleKind {
   console.log('Mapping MAV type to vehicle kind:', mavType);
   if (mavType == null) return 'unknown';
@@ -154,6 +161,7 @@ export function mapVehicleKind(mavType: number | null): VehicleKind {
   return 'unknown';
 }
 
+//Type de firmware pour l'application
 export function mapFirmwareFamily(
   autopilot: number | null,
   mavType: number | null

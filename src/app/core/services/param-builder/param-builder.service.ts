@@ -212,17 +212,6 @@ export class ParamBuilderService {
       return 'number';
     }
 
-    const hasBoundedNumericDefinition =
-      metadata.min != null &&
-      metadata.max != null &&
-      metadata.increment != null &&
-      metadata.increment > 0 &&
-      metadata.values.size > 0;
-
-    if (hasBoundedNumericDefinition) {
-      return 'number';
-    }
-
     if (metadata.values.has(0) && metadata.values.has(1) && metadata.values.size === 2) {
       return 'checkbox';
     }

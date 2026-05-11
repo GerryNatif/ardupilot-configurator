@@ -1,4 +1,4 @@
-import { Injectable, Signal, computed, inject } from '@angular/core';
+import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { ParameterMetadata } from '../models/parameter-metadata.model';
@@ -11,8 +11,32 @@ import { VehicleIdentityStore } from '../state/vehicle-identity.store';
 import { MavlinkSessionBootstrapService } from '../services/mavlink-session-bootstrap.service';
 import { SerialTransportService } from '../transport/serial-transport.service';
 
+/**
+ * Facade metier pour les interactions MAVLink cote application.
+ *
+ * Usage:
+ * - Exposer un point d'entree unique pour la connexion/deconnexion et l'etat du lien.
+ * - Encapsuler les actions haut niveau (arm/disarm, ecriture parametres, reboot autopilote).
+ * - Agreger les etats reactifs utilises par l'UI (telemetrie, identite vehicule, parametres, metadonnees).
+ * - Orchestrer les sequences de bootstrap/reinitialisation sans exposer les details transport/protocole.
+ *
+ * Cette facade delegue l'execution technique aux services MAVLink internes
+ * (transport, commandes, stores, bootstrap) et centralise les validations
+ * applicatives ainsi que les erreurs metier exposees a l'interface.
+ *
+ * Application-facing domain facade for MAVLink interactions.
+ *
+ * Usage:
+ * - Provide a single entry point for connect/disconnect and link status.
+ * - Encapsulate high-level actions (arm/disarm, parameter writes, autopilot reboot).
+ * - Aggregate reactive state consumed by the UI (telemetry, vehicle identity, parameters, metadata).
+ * - Orchestrate bootstrap/reinitialization sequences without exposing transport/protocol internals.
+ *
+ * This facade delegates technical execution to internal MAVLink services
+ * (transport, commands, stores, bootstrap) and centralizes application-level
+ * validation plus domain errors surfaced to the UI.
+ */
 @Injectable({ providedIn: 'root' })
-
 export class DroneLinkFacade {
   private static readonly LAST_BAUD_RATE_STORAGE_KEY = 'link:lastBaudRate';
   private static readonly DEFAULT_BAUD_RATE = 115200;
@@ -25,23 +49,43 @@ export class DroneLinkFacade {
   private readonly parameterMetadataService = inject(ParameterMetadataService);
   private readonly bootstrap = inject(MavlinkSessionBootstrapService);
 
-  private readonly linkStatusSig = toSignal(this.transport.status$, { initialValue: 'disconnected' as LinkStatus });
+  private readonly linkStatusSig = toSignal(this.transport.status$, {
+    initialValue: 'disconnected' as LinkStatus,
+  });
+  private readonly sessionReadySig = signal(false);
 
   readonly telemetry: Signal<TelemetryState> = this.telemetryStore.telemetry;
   readonly vehicleIdentity = this.vehicleIdentityStore.state;
   readonly parameterState = this.parameterStore.state;
   readonly parameterMetadataState = this.parameterMetadataService.state;
   readonly linkStatus = computed(() => this.linkStatusSig());
-  readonly isConnected = computed(() => this.linkStatusSig() === 'connected');
+  readonly isSessionReady = computed(() => this.linkStatusSig() === 'connected' && this.sessionReadySig());
+  readonly isConnected = this.isSessionReady;
 
   async connect(baudrate: number): Promise<void> {
-    await this.transport.connect(baudrate);
+    this.sessionReadySig.set(false);
+    try {
+      await this.transport.connect(baudrate);
+    } catch (error) {
+      await this.transport.disconnect();
+      throw error;
+    }
+
     this.persistLastBaudRate(baudrate);
-    await this.bootstrap.initialize();
+    try {
+      await this.bootstrap.initialize();
+      this.sessionReadySig.set(true);
+    } catch (error) {
+      this.bootstrap.reset();
+      this.sessionReadySig.set(false);
+      await this.transport.disconnect();
+      throw error;
+    }
   }
 
   async tryAutoConnect(): Promise<boolean> {
     const baudRate = this.getLastBaudRate();
+    this.sessionReadySig.set(false);
 
     try {
       const connected = await this.transport.autoConnectAuthorized(baudRate);
@@ -49,14 +93,25 @@ export class DroneLinkFacade {
         return false;
       }
 
-      await this.bootstrap.initialize();
+      try {
+        await this.bootstrap.initialize();
+        this.sessionReadySig.set(true);
+      } catch {
+        this.bootstrap.reset();
+        this.sessionReadySig.set(false);
+        await this.transport.disconnect();
+        return false;
+      }
+
       return true;
     } catch {
+      this.sessionReadySig.set(false);
       return false;
     }
   }
 
   async disconnect(): Promise<void> {
+    this.sessionReadySig.set(false);
     this.bootstrap.reset();
     await this.transport.disconnect();
   }
@@ -104,14 +159,15 @@ export class DroneLinkFacade {
       throw new AppError('errors.facade.target_not_detected');
     }
 
+    this.sessionReadySig.set(false);
     await this.commands.rebootAutopilot(targetSystem, targetComponent);
 
-  // Laisse le temps a la commande de reboot de partir avant de couper le lien.
-  await this.delay(200);
+    // Laisse le temps a la commande de reboot de partir avant de couper le lien.
+    await this.delay(200);
 
-  // Force une transition d'etat deconnecte pour l'UI et nettoie la session.
-  this.bootstrap.reset();
-  await this.transport.disconnect();
+    // Force une transition d'etat deconnecte pour l'UI et nettoie la session.
+    this.bootstrap.reset();
+    await this.transport.disconnect();
 
     // Let the FC reboot before attempting to fetch heartbeat/streams again.
     await this.delay(3500);
@@ -122,6 +178,7 @@ export class DroneLinkFacade {
     }
 
     await this.bootstrap.initialize();
+    this.sessionReadySig.set(true);
   }
 
   getParameterMetadata(name: string): ParameterMetadata | undefined {

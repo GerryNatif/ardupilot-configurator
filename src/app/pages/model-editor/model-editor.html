@@ -16,6 +16,16 @@
 				class="gui-box--fill-height gui-box--title-offset"
 				[title]="selectedShape() ? 'Profil' : 'Composants'"
 			>
+				<div class="model-editor__export-row">
+					<button
+						type="button"
+						class="regular-button model-editor__export-btn"
+						(click)="exportTransparentPng()"
+					>
+						Exporter PNG transparent
+					</button>
+				</div>
+
 				@if (selectedShape(); as shape) {
 					<div class="shape-panel">
 						<p class="shape-panel__title">{{ shape.name }}</p>

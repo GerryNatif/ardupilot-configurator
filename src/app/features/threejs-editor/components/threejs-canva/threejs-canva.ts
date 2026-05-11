@@ -253,7 +253,12 @@ export class ThreejsCanvas implements OnInit, AfterViewInit, OnDestroy {
     const canvas = this.canvasRef.nativeElement;
     const { width, height } = canvas.getBoundingClientRect();
 
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    this.renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      preserveDrawingBuffer: true,
+    });
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.setSize(width || 800, height || 600);
     this.renderer.shadowMap.enabled = true;
@@ -601,6 +606,73 @@ export class ThreejsCanvas implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // ── Public actions ────────────────────────────────────────────────────────
+  async exportTransparentPng(fileName = 'model-transparent.png'): Promise<void> {
+    if (!this.renderer || !this.scene || !this.composer) {
+      return;
+    }
+
+    const canvas = this.canvasRef.nativeElement;
+    const selectedBeforeExport = this.selectedObject();
+    const previousGridVisible = this.gridHelper?.visible ?? false;
+    const planeVisibility = this.gridPlanes
+      .getPlanes()
+      .map((plane) => ({ plane, visible: plane.visible }));
+    const previousBackground = this.scene.background;
+    const previousClearColor = new THREE.Color();
+    this.renderer.getClearColor(previousClearColor);
+    const previousClearAlpha = this.renderer.getClearAlpha();
+    const previousSelectedOutlineEnabled = this.selectedOutlinePass.enabled;
+    const previousHoverOutlineEnabled = this.hoverOutlinePass.enabled;
+
+    try {
+      if (this.gridHelper) {
+        this.gridHelper.visible = false;
+      }
+
+      for (const { plane } of planeVisibility) {
+        plane.visible = false;
+      }
+
+      // Hide transform gizmo from export.
+      this.gizmo.detach();
+      this.selectedOutlinePass.enabled = false;
+      this.hoverOutlinePass.enabled = false;
+
+      this.scene.background = null;
+      this.renderer.setClearColor(0x000000, 0);
+      this.composer.render();
+
+      const blob = await this.canvasToPngBlob(canvas);
+      if (!blob) {
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = fileName;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      this.scene.background = previousBackground;
+      this.renderer.setClearColor(previousClearColor, previousClearAlpha);
+      this.selectedOutlinePass.enabled = previousSelectedOutlineEnabled;
+      this.hoverOutlinePass.enabled = previousHoverOutlineEnabled;
+
+      if (this.gridHelper) {
+        this.gridHelper.visible = previousGridVisible;
+      }
+
+      for (const { plane, visible } of planeVisibility) {
+        plane.visible = visible;
+      }
+
+      if (selectedBeforeExport instanceof THREE.Mesh && !this.isLockedSelection(selectedBeforeExport)) {
+        this.gizmo.attach(selectedBeforeExport);
+      }
+    }
+  }
+
   addShape(type: ShapeConfig['type']) {
     const mesh = this.shapeService.create({ type });
     mesh.castShadow = true;
@@ -932,8 +1004,9 @@ export class ThreejsCanvas implements OnInit, AfterViewInit, OnDestroy {
       const deltaAngle = ((index + 1) * Math.PI * 2) / count;
       const orbitQuat = new THREE.Quaternion().setFromAxisAngle(yAxis, deltaAngle);
 
-      // Base = orientation du master, puis décalage orbital
-      slave.quaternion.copy(master.quaternion).multiply(orbitQuat);
+      // Applique d'abord l'offset orbital dans le repere monde (axe Y),
+      // puis conserve l'orientation du master sur les autres axes.
+      slave.quaternion.copy(master.quaternion).premultiply(orbitQuat);
 
       slave.scale.copy(master.scale);
       slave.matrixAutoUpdate = true;
@@ -1107,6 +1180,12 @@ export class ThreejsCanvas implements OnInit, AfterViewInit, OnDestroy {
 
   private bumpCircularRepeatVersion() {
     this.circularRepeatVersion.update((value) => value + 1);
+  }
+
+  private canvasToPngBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
+    return new Promise<Blob | null>((resolve) => {
+      canvas.toBlob((blob) => resolve(blob), 'image/png');
+    });
   }
 
   // ── Resize ────────────────────────────────────────────────────────────────

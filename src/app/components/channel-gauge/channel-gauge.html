@@ -1,23 +1,92 @@
 <div class="channel-gauge">
-    <div class="gauge-label">{{ title() }}</div>
+  <div class="channel-gauge__header">
+    <div class="channel-gauge__index">{{ displayTitle() }}</div>
 
-    <div class="gauge-wrapper">
+    @if (showMode()) {
+      <select
+        class="channel-gauge__select"
+        [attr.aria-label]="'Mode ' + title()"
+        [value]="selectedMode()"
+        (change)="onSelectedModeChange($event)"
+      >
+        @for (option of effectiveModeOptions(); track option) {
+          <option [value]="option">{{ option }}</option>
+        }
+      </select>
+    } @else {
+      <span class="channel-gauge__mode-label">{{ selectedMode() }}</span>
+    }
+
+    <label class="channel-gauge__reverse">
+      <input
+        type="checkbox"
+        [checked]="reversed()"
+        aria-label="Inverser"
+        (change)="onReversedChange($event)"
+      />
+      <span>Inverser</span>
+    </label>
+
+    @if (showDeadZone()) {
+      <div class="channel-gauge__dead-zone-field">
+        <input
+          [id]="deadZoneInputId"
+          class="channel-gauge__dead-zone"
+          type="number"
+          min="0"
+          step="1"
+          [value]="deadZone()"
+          (change)="onDeadZoneChange($event)"
+        />
+        <label class="channel-gauge__dead-zone-label" [attr.for]="deadZoneInputId">Dead zone</label>
+      </div>
+    }
+  </div>
+
+  <div class="channel-gauge__body">
+    <div
+      class="gauge"
+      role="progressbar"
+      [attr.aria-label]="title()"
+      [attr.aria-valuemin]="min()"
+      [attr.aria-valuemax]="max()"
+      [attr.aria-valuenow]="clampedValue()"
+    >
+      @if (showDeadZone()) {
         <div
-            class="gauge"
-            role="progressbar"
-            [attr.aria-label]="title()"
-            [attr.aria-valuemin]="min()"
-            [attr.aria-valuemax]="max()"
-            [attr.aria-valuenow]="value()"
-        >
-            <div class="gauge-fill" [style.width.%]="fillPercent()" [style.background]="color()">
-                <span class="gauge-value">{{ value() }} {{ unit() }}</span>
-            </div>
-        </div>
+          class="gauge-dead-zone"
+          [style.left.%]="deadZoneStartPercent()"
+          [style.width.%]="deadZoneWidthPercent()"
+        ></div>
+      }
 
-        <div class="gauge-bounds">
-            <span>{{ min() }} {{ unit() }}</span>
-            <span>{{ max() }} {{ unit() }}</span>
-        </div>
+      <div class="gauge-fill" [style.width.%]="fillPercent()" [style.background]="color()"></div>
+
+      <div class="gauge-value-overlay gauge-value-overlay--base" aria-hidden="true">
+        <span class="gauge-value">{{ valueLabel() }}</span>
+      </div>
+
+      <div class="gauge-value-overlay gauge-value-overlay--fill" [style.width.%]="fillPercent()" aria-hidden="true">
+        <span class="gauge-value">{{ valueLabel() }}</span>
+      </div>
     </div>
+
+    <div class="gauge-bounds">
+      <div class="gauge-ticks" aria-hidden="true">
+        <span class="gauge-tick gauge-tick--start"></span>
+        @if (showDeadZone()) {
+          <span class="gauge-tick gauge-tick--middle" [style.left.%]="midPercent()"></span>
+        }
+        <span class="gauge-tick gauge-tick--end"></span>
+      </div>
+
+      <span>{{ min() }}</span>
+      @if (showDeadZone()) {
+        <span class="gauge-mid" [style.left.%]="midPercent()">
+          <span>{{ centerValue() }}</span>
+        </span>
+      }
+      <span>{{ max() }}</span>
+    </div>
+  </div>
 </div>

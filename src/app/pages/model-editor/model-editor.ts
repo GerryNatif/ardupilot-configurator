@@ -81,6 +81,10 @@ export class ModelEditor {
     this.canvas().addShape(id);
   }
 
+  async exportTransparentPng(): Promise<void> {
+    await this.canvas().exportTransparentPng();
+  }
+
   updateShapeParam(control: ShapeControlDefinition, event: Event) {
     const target = event.target as HTMLInputElement | null;
     if (!target) return;

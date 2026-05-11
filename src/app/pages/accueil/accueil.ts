@@ -5,7 +5,7 @@ import { AttributDropdown } from "../../components/ui/attribut-dropdown/attribut
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [TitlePage, AttributDropdown],
+  imports: [],
   templateUrl: './accueil.html',
   styleUrl: './accueil.scss',
 })

@@ -11,6 +11,18 @@ interface ParsedMavMessage {
   readonly name: string;
 }
 
+/**
+ * Service responsable du décodage des trames MAVLink 2 reçues depuis le
+ * transport série. Il expose un flux d'observables contenant tous les messages
+ * parsés, permet de s'abonner à un type de message précis et d'envoyer des
+ * paquets MAVLink 2 vers le périphérique connecté.
+ *
+ * This service is responsible for decoding MAVLink 2 frames received from the
+ * serial transport. It exposes an observable stream of all parsed messages,
+ * allows subscribing to a specific message type and sending MAVLink 2 packets
+ * back to the connected device.
+ */
+
 @Injectable({ providedIn: 'root' })
 
 export class MavlinkParserService implements OnDestroy {
@@ -19,41 +31,15 @@ export class MavlinkParserService implements OnDestroy {
   private readonly messageSubject = new Subject<ParsedMavMessage>();
   private transportSub?: Subscription;
 
-  //private readonly rateTimerId: ReturnType<typeof setInterval>;
   readonly messages$ = this.messageSubject.asObservable().pipe(
     map((entry) => entry.raw),
     share()
   );
 
   constructor(private readonly transport: SerialTransportService) {
-    let okCount = 0;
-    let badCount = 0;
-
-    /*
-    this.rateTimerId = setInterval(() => {
-      console.info('[MAVLINK] rate', { okPerSec: okCount, badPerSec: badCount });
-      okCount = 0;
-      badCount = 0;
-    }, 1000);
-    */
 
     this.parser.on('message', (msg: AnyMavMessage) => {
       const name = this.getMessageName(msg);
-      
-      // console.log('[MAVLINK] message brut', msg);
-      if (name === 'BAD_DATA') {
-        badCount += 1;
-        const reason = (msg as { _reason?: string })['_reason'] ?? 'unknown';
-        //console.warn('[MAVLINK] bad_data', reason);
-      } else {
-        okCount += 1;
-
-        // Log important: affiche tous les messages utiles
-        if (['HEARTBEAT', 'GPS_RAW_INT', 'SYS_STATUS', 'ATTITUDE'].includes(name)) {
-          //console.info('[MAVLINK] message', name, msg);
-        }
-      }
-
       this.messageSubject.next({ raw: msg, name });
     });
 
@@ -63,10 +49,10 @@ export class MavlinkParserService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //clearInterval(this.rateTimerId);
     this.transportSub?.unsubscribe();
   }
 
+  // Envoie un message de heartbeat MAVLink 2 pour "amorcer" la communication avec le périphérique.
   async sendMavlink2PrimingHeartbeat(): Promise<void> {
     const m = this.mavlink();
     const heartbeat = new m.messages.heartbeat(

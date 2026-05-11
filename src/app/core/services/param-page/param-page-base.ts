@@ -41,15 +41,19 @@ export abstract class ParamPageBase {
    * Resolves the write request and records the change in the draft session.
    */
   protected onParameterChange(event: ParamTableValueChangeEvent): void {
+
+    //résout la requête d'écriture à partir du nom et de la valeur modifiée
     const request = this.paramBuilder.resolveWriteRequest(event.name, event.value);
     if (!request) {
       return;
     }
 
+    //lecture du paramètre en cours pour comparer avec la valeur modifiée
     const current = this.link.parameterState().byName.get(request.name)?.value;
-    const rebootRequired =
-      this.link.getParameterMetadata(request.name)?.rebootRequired === true;
+    //détermine si le changement nécessite un reboot en fonction des métadonnées du paramètre
+    const rebootRequired = this.link.getParameterMetadata(request.name)?.rebootRequired === true;
 
+    //enregistre le changement dans la session de brouillon
     this.draftSession.setChange(
       { name: request.name, value: request.value, rebootRequired },
       current,
@@ -57,8 +61,8 @@ export abstract class ParamPageBase {
   }
 
   /**
-   * Overlays pending draft values on top of a live section snapshot.
-   * Pass the raw section signal value and the current draft map.
+    * Superpose les valeurs de brouillon en attente sur un instantané de section en direct.
+    * Passe la valeur brute du signal de section et la map courante des brouillons.
    */
   protected withDrafts(section: ParamTableSection): ParamTableSection {
     const draftValues = this.draftSession.draftValues();

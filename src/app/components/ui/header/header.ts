@@ -4,6 +4,7 @@ import { SensorsStatus } from "../sensors-status/sensors-status";
 import { computed, inject } from '@angular/core';
 import { DroneLinkFacade } from '../../../core/mavlink/facade/drone-link.facade';
 import { UiErrorService } from '../../../core/services/error/ui-error.service';
+import { AppError } from '../../../core/services/error/app-error';
 
 type VehicleType = 'copter' | 'plane' | 'rover' | 'boat' | 'sub' | 'station';
 
@@ -33,7 +34,9 @@ export class Header {
   private readonly link = inject(DroneLinkFacade);
   private readonly uiError = inject(UiErrorService);
   readonly isConnected = this.link.isConnected;
-  readonly connectionLabel = computed(() => this.link.isConnected() ? 'Déconnecter' : 'Connexion');
+  readonly isLinkActive = computed(() => this.link.linkStatus() !== 'disconnected');
+  readonly isConnecting = computed(() => this.link.linkStatus() === 'connecting');
+  readonly connectionLabel = computed(() => this.isLinkActive() ? 'Déconnecter' : 'Connexion');
   readonly vehicleIdentity = this.link.vehicleIdentity;
   readonly detectedVehicle = computed(() => this.vehicleIdentity().vehicleKind);
   readonly detectedFirmware = computed(() => this.vehicleIdentity().firmwareFamily);
@@ -78,7 +81,7 @@ export class Header {
 
   async onConnectionToggle(event: Event): Promise<void> {
     event.preventDefault();
-    const wasConnected = this.link.isConnected();
+    const wasConnected = this.isLinkActive();
 
     try {
       if (wasConnected) {
@@ -87,9 +90,17 @@ export class Header {
         await this.link.connect(Number(this.selectedBaud));
       }
     } catch (error) {
-      //this.uiError.show(error, wasConnected ? 'errors.titles.disconnect_failed' : 'errors.titles.connect_failed');
+      if (!wasConnected && this.isUserCancelledPortSelection(error)) {
+        return;
+      }
+
+      this.uiError.show(error, wasConnected ? 'errors.titles.disconnect_failed' : 'errors.titles.connect_failed');
       console.error('Connection toggle failed:', error);
     }
+  }
+
+  private isUserCancelledPortSelection(error: unknown): boolean {
+    return error instanceof AppError && error.key === 'errors.transport.port_selection_cancelled';
   }
 
 }

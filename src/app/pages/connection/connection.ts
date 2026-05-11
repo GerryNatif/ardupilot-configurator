@@ -1,11 +1,10 @@
 import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TitlePage } from '../../components/ui/title-page/title-page';
 import { DroneLinkFacade } from '../../core/mavlink/facade/drone-link.facade';
 
 @Component({
   selector: 'app-connection',
-  imports: [TitlePage],
+  imports: [],
   templateUrl: './connection.html',
   styleUrl: './connection.scss',
 })
@@ -15,6 +14,8 @@ export class Connection {
   private readonly link = inject(DroneLinkFacade);
 
   constructor() {
+    //Cette route sert d'écran d'attente pendant que le contrôleur de vol redémarre et se reconnecte. 
+    //This route acts as a waiting screen while the flight controller reboots and reconnects.
     effect(() => {
       if (!this.link.isConnected()) {
         return;

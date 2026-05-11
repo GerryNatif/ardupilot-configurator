@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { DroneLinkFacade } from '../../mavlink/facade/drone-link.facade';
 import { INITIAL_PARAMETER_METADATA_STATE } from '../../mavlink/models/parameter-metadata.model';
 import { INITIAL_PARAMETER_STATE } from '../../mavlink/models/parameter.model';
-import { ParamBuilderService } from '../param-builder.service';
+import { ParamBuilderService } from './param-builder.service';
 
 describe('ParamBuilderService', () => {
   const parameterState = signal({

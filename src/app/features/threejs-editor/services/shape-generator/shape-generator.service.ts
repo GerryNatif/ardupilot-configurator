@@ -44,7 +44,7 @@ export class ShapeGeneratorService {
     const color = config.color ?? SHAPE_COLOR;
     const geometry = definition.createGeometry(params);
 
-    const material = new THREE.MeshPhongMaterial({
+    const defaultMaterial = new THREE.MeshPhongMaterial({
       color,
       side: THREE.DoubleSide,
       shininess: 30,
@@ -52,6 +52,10 @@ export class ShapeGeneratorService {
       opacity: 1,
       transparent: false,
     });
+
+    const material = definition.createMaterials
+      ? definition.createMaterials(params, color)
+      : defaultMaterial;
 
     const mesh = new THREE.Mesh(geometry, material);
 
@@ -67,6 +71,7 @@ export class ShapeGeneratorService {
       hull: 'Coque',
       fuselage: 'Fuselage',
       stick: 'Stick',
+      rotorDisk: 'Disque',
     };
     mesh.name = `${nameMap[definition.type] ?? definition.type} ${this.counter[definition.type]}`;
     mesh.userData['name'] = mesh.name;

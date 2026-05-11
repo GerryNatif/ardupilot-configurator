@@ -7,6 +7,7 @@ import { AppError } from '../../../core/services/error/app-error';
 import { ParameterMetadataService } from './parameter-metadata.service';
 import { ParameterStore } from '../state/parameter.store';
 import { VehicleIdentityStore } from '../state/vehicle-identity.store';
+import { UiErrorService } from '../../services/error/ui-error.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -38,7 +39,8 @@ export class MavlinkSessionBootstrapService {
     private readonly commands: MavlinkCommandService,
     private readonly vehicleIdentityStore: VehicleIdentityStore,
     private readonly parameterStore: ParameterStore,
-    private readonly parameterMetadataService: ParameterMetadataService
+    private readonly parameterMetadataService: ParameterMetadataService,
+    private readonly uiError: UiErrorService
   ) {}
 
   async initialize(): Promise<void> {
@@ -58,7 +60,11 @@ export class MavlinkSessionBootstrapService {
 
     await this.requestAutopilotVersionIfPossible();
     await this.waitForAutopilotVersion(2000);
-    await this.parameterMetadataService.loadForVehicle(this.vehicleIdentityStore.state());
+    try {
+      await this.parameterMetadataService.loadForVehicle(this.vehicleIdentityStore.state());
+    } catch (error) {
+      this.uiError.show(error, 'errors.titles.generic');
+    }
     await this.startParameterSync();
   }
 

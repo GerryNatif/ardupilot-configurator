@@ -1,0 +1,34 @@
+<section role="dialog" aria-modal="true" aria-label="Calibration radio">
+	<div class="radio-calibration__mode">
+		<select [ngModel]="selectedMode()" (ngModelChange)="selectedMode.set($event)" aria-label="Mode radio">
+			@for (mode of modeOptions; track mode) {
+				<option [value]="mode">{{ mode }}</option>
+			}
+		</select>
+	</div>
+
+	<div class="radio-calibration__sticks">
+		<div class="radio-calibration__stick-block">
+			<app-rc-stick
+				[x]="leftStickX()"
+				[y]="leftStickY()"
+				[xLabel]="stickLabels().left.x"
+				[yLabel]="stickLabels().left.y"
+			></app-rc-stick>
+		</div>
+
+		<div class="radio-calibration__stick-block">
+			<app-rc-stick
+				[x]="rightStickX()"
+				[y]="rightStickY()"
+				[xLabel]="stickLabels().right.x"
+				[yLabel]="stickLabels().right.y"
+			></app-rc-stick>
+		</div>
+	</div>
+
+	<p class="radio-calibration__instruction">
+		Placez chaque manche et chaque curseur sur leurs positions minimales, maximales et centrales, puis
+		validez la calibration.
+	</p>
+</section>

@@ -28,6 +28,7 @@
     align-items: center;
     overflow-x: hidden;
     border-radius: 999px;
+    z-index: 999;
 }
 
 .spacer_box_title {
@@ -55,7 +56,7 @@
 :host(.gui-box--fill-height) .gui_box {
     height: 100%;
     margin-top: 0;
-    overflow: hidden;
+    overflow: visible;
 }
 
 :host(.gui-box--fill-height) .spacer_box {

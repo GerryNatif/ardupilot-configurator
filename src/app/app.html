@@ -32,11 +32,11 @@
   </footer>
 
   @if (errorDialog().open) {
-    <div class="app-error-dialog__backdrop" role="presentation" (click)="closeErrorDialog()">
-      <section class="app-error-dialog__card" role="dialog" aria-modal="true" [attr.aria-label]="errorDialog().titleKey | translate" (click)="$event.stopPropagation()">
-        <h2 class="app-error-dialog__title">{{ errorDialog().titleKey | translate }}</h2>
-        <p class="app-error-dialog__message">{{ errorDialog().messageKey | translate: errorDialog().messageParams }}</p>
-        <div class="app-error-dialog__actions">
+    <div class="popup__backdrop" role="presentation" (click)="closeErrorDialog()">
+      <section class="popup__card" role="dialog" aria-modal="true" [attr.aria-label]="errorDialog().titleKey | translate" (click)="$event.stopPropagation()">
+        <h2 class="popup__title">{{ errorDialog().titleKey | translate }}</h2>
+        <p class="popup__message">{{ errorDialog().messageKey | translate: errorDialog().messageParams }}</p>
+        <div class="popup__actions">
           <button type="button" class="regular-button" (click)="closeErrorDialog()">OK</button>
         </div>
       </section>

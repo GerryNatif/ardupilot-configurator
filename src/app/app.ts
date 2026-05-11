@@ -10,6 +10,7 @@ import { SaveBtn } from './components/ui/save-btn/save-btn';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
 import { Theme } from './core/services/theme';
 import { UiErrorService } from './core/services/error/ui-error.service';
+import { connectedGuard } from './core/guards/connected.guard';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +43,21 @@ export class App {
       this.theme.applyVehicleTheme(kind);
     });
 
+    effect(() => {
+      if (this.link.isConnected()) {
+        return;
+      }
+
+      const currentUrl = this.router.url.split('?')[0] ?? '/';
+      if (!this.isGuardedRoute(currentUrl)) {
+        return;
+      }
+
+      void this.router.navigate(['/connection'], {
+        queryParams: { returnUrl: currentUrl },
+      });
+    });
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -68,5 +84,16 @@ export class App {
 
   closeErrorDialog(): void {
     this.uiError.close();
+  }
+
+  private isGuardedRoute(url: string): boolean {
+    const normalizedUrl = url.startsWith('/') ? url.slice(1) : url;
+    const matchedRoute = this.router.config.find((route) => route.path === normalizedUrl);
+
+    if (!matchedRoute?.canActivate?.length) {
+      return false;
+    }
+
+    return matchedRoute.canActivate.includes(connectedGuard);
   }
 }

@@ -7,6 +7,11 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   handleError(error: unknown): void {
     const normalized = this.normalizeError(error);
+
+    if (this.isIgnorableDeviceLostError(normalized)) {
+      return;
+    }
+
     this.uiError.show(normalized, 'errors.titles.unexpected');
     console.error(error);
   }
@@ -29,5 +34,13 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   private isErrorWithRejection(value: unknown): value is { rejection: unknown } {
     return typeof value === 'object' && value != null && 'rejection' in value;
+  }
+
+  private isIgnorableDeviceLostError(error: unknown): boolean {
+    if (!(error instanceof Error)) {
+      return false;
+    }
+
+    return error.message.toLowerCase().includes('the device has been lost');
   }
 }

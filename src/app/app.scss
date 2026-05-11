@@ -69,45 +69,6 @@
   right: 0;
 }
 
-.app-error-dialog__backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 3500;
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  background: rgba(10, 14, 22, 0.45);
-  backdrop-filter: blur(3px);
-}
-
-.app-error-dialog__card {
-  width: min(92vw, 520px);
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  background: var(--surface-100);
-  color: var(--text);
-  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
-  padding: 1rem;
-}
-
-.app-error-dialog__title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.app-error-dialog__message {
-  margin: 0.8rem 0 0;
-  color: var(--text);
-  line-height: 1.45;
-}
-
-.app-error-dialog__actions {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
 @media (max-width: 1055px) {
   .app-shell__main {
     grid-template-columns: 4rem minmax(0, 1fr);

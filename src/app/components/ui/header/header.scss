@@ -41,7 +41,6 @@
     gap: 0.4rem;
 }
 
-.web-port-picker__select,
 .web-port-picker__select {
     height: 34px;
     border-radius: 8px;
@@ -118,11 +117,11 @@
             mask-image: var(--icon-url);
             mask-repeat: no-repeat;
             mask-position: center;
-            mask-size: 30px;
+            mask-size: 35px;
             -webkit-mask-image: var(--icon-url);
             -webkit-mask-repeat: no-repeat;
             -webkit-mask-position: center;
-            -webkit-mask-size: 30px;
+            -webkit-mask-size: 35px;
         }
     }
 
@@ -148,6 +147,11 @@
 
     a.connection_button__link {
         --button-icon-color: #111;
+    }
+
+    a.connection_button__link.connection_button__link--connecting {
+        background: linear-gradient(180deg, #ffd44d 0%, #f6c31f 100%);
+        border-color: #d2a100;
     }
 
     a.connection_button__link.connection_button__link--connected {

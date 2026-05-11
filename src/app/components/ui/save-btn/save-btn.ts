@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { SaveBar } from '../../../core/services/save-bar';
+import { SaveParam } from '../../../core/services/save-param';
 
 @Component({
   selector: 'app-save-btn',
@@ -10,11 +10,11 @@ import { SaveBar } from '../../../core/services/save-bar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SaveBtn {
-  private readonly saveBar = inject(SaveBar);
+  private readonly saveParam = inject(SaveParam);
 
-  readonly state = this.saveBar.state;
+  readonly state = this.saveParam.state;
 
   async onSave(): Promise<void> {
-    await this.saveBar.triggerSave();
+    await this.saveParam.triggerSave();
   }
 }

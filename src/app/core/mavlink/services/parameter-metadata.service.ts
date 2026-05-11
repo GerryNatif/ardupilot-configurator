@@ -72,7 +72,7 @@ export class ParameterMetadataService {
         loaded: true,
         lastError: 'Firmware/version non disponible pour charger les metadonnees.'
       });
-      return;
+      throw new AppError('errors.metadata.version_unavailable');
     }
 
     this.stateSig.set({

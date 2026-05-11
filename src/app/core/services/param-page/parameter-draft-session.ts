@@ -5,7 +5,7 @@ import {
   ParameterSaveWorkflow,
   ParameterWriteChange,
 } from './parameter-save-workflow';
-import { SaveBar } from '../save-bar';
+import { SaveParam } from '../save-param';
 
 /**
  * Service de session de brouillon pour les modifications de parametres.
@@ -19,7 +19,7 @@ import { SaveBar } from '../save-bar';
  */
 @Injectable()
 export class ParameterDraftSession {
-  private readonly saveBar = inject(SaveBar);
+  private readonly saveParam = inject(SaveParam);
   private readonly saveWorkflow = inject(ParameterSaveWorkflow);
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
@@ -52,8 +52,8 @@ export class ParameterDraftSession {
         return;
       }
 
-      this.saveBar.setDirty(activeContextId, this.hasPendingChanges());
-      this.saveBar.setLabel(
+      this.saveParam.setDirty(activeContextId, this.hasPendingChanges());
+      this.saveParam.setLabel(
         activeContextId,
         this.hasPendingRebootChanges() ? 'Sauvegarder et redemarrer' : 'Sauvegarder'
       );
@@ -65,18 +65,18 @@ export class ParameterDraftSession {
         return;
       }
 
-      this.saveBar.unregisterContext(activeContextId);
+      this.saveParam.unregisterContext(activeContextId);
     });
   }
 
   start(contextId: string): void {
     const previousContextId = this.contextId();
     if (previousContextId && previousContextId !== contextId) {
-      this.saveBar.unregisterContext(previousContextId);
+      this.saveParam.unregisterContext(previousContextId);
     }
 
     this.contextId.set(contextId);
-    this.saveBar.registerContext(contextId, {
+    this.saveParam.registerContext(contextId, {
       label: 'Sauvegarder',
       onSave: () => this.save(),
     });

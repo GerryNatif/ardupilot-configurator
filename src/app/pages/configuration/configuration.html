@@ -7,6 +7,7 @@
   @for (section of parameterSections(); track section.id) {
     <app-param-table
       [section]="section"
+      [disabled]="!isConnected()"
       (valueChange)="onParameterValueChange($event)"
     />
   }

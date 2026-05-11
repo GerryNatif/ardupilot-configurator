@@ -28,7 +28,7 @@
   }
 
   <div class="header-actions" [class.reveal]="isExpanded">
-    @if (!isConnected()) {
+    @if (!isLinkActive()) {
       <div class="web-port-picker" [class.reveal]="isExpanded">
         <select class="web-port-picker__select" [(ngModel)]="selectedBaud" aria-label="Baud rate">
           <option value="115200">115200</option>
@@ -53,12 +53,13 @@
       <div class="connection_button">
         <a
           class="connection_button__link"
-          [class.connection_button__link--connected]="!isConnected()"
-          [class.connection_button__link--disconnect]="isConnected()"
+          [class.connection_button__link--connecting]="isConnecting()"
+          [class.connection_button__link--connected]="!isLinkActive()"
+          [class.connection_button__link--disconnect]="isLinkActive()"
           href="#"
           [attr.aria-label]="connectionLabel()"
           [style.--icon-url]="
-            'url(' + getIconPath(isConnected() ? 'no-usb-cable.svg' : 'usb-cable.svg') + ')'
+            'url(' + getIconPath(isLinkActive() ? 'no-usb-cable.svg' : 'usb-cable.svg') + ')'
           "
           (click)="onConnectionToggle($event)"
         >

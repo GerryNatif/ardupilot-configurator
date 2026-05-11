@@ -78,6 +78,16 @@
 	}
 }
 
+.model-editor__export-row {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 0.8rem;
+}
+
+.model-editor__export-btn {
+	width: 100%;
+}
+
 .shape-group {
 	display: flex;
 	flex-direction: column;

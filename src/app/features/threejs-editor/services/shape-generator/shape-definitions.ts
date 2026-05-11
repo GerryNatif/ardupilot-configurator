@@ -1,8 +1,10 @@
 import { ShapeDefinition } from './shape-generator.models';
+import * as THREE from 'three';
 import { createWingGeometry } from '../geometry/wing-geometry';
 import { createHullGeometry } from '../geometry/hull-geometry';
 import { createFuselageGeometry } from '../geometry/fuselage-geometry';
 import { createStickGeometry } from '../geometry/stick-geometry';
+import { createRotorDiskGeometry } from '../geometry/rotor-disk-geometry';
 
 export const SHAPE_DEFINITIONS: ReadonlyArray<ShapeDefinition> = [
   {
@@ -81,7 +83,7 @@ export const SHAPE_DEFINITIONS: ReadonlyArray<ShapeDefinition> = [
     type: 'fuselage',
     label: 'Fuselage',
     controls: [
-      { key: 'length', label: 'Longueur', control: 'range', group: 'Dimensions', min: 5, max: 20, step: 0.5 },
+      { key: 'length', label: 'Longueur', control: 'range', group: 'Dimensions', min: 2, max: 15, step: 0.5 },
       { key: 'radius', label: 'Rayon max', control: 'range', group: 'Dimensions', min: 0.5, max: 3, step: 0.1 },
       { key: 'taperFront', label: 'Effilement avant', control: 'range', group: 'Profil', min: 0.1, max: 10, step: 0.1 },
       { key: 'taperBack', label: 'Effilement arriere', control: 'range', group: 'Profil', min: 0.1, max: 10, step: 0.1 },
@@ -110,5 +112,37 @@ export const SHAPE_DEFINITIONS: ReadonlyArray<ShapeDefinition> = [
       diameter: 0.4,
     },
     createGeometry: (params) => createStickGeometry(params),
+  },
+  {
+    type: 'rotorDisk',
+    label: 'Disque rotor',
+    controls: [
+      { key: 'clockwise', label: 'Horaire', control: 'checkbox', group: 'Sens' },
+      { key: 'counterClockwise', label: 'Anti horaire', control: 'checkbox', group: 'Sens' },
+      { key: 'colorType', label: 'Type couleur', control: 'range', group: 'Style', min: 0, max: 2, step: 1 },
+    ],
+    defaults: {
+      clockwise: true,
+      counterClockwise: false,
+      colorType: 0,
+    },
+    createGeometry: (params) => createRotorDiskGeometry(params),
+    createMaterials: (params) => {
+      const colorType = Math.max(0, Math.min(2, Math.round(Number(params['colorType'] ?? 0))));
+      const accent = [0x15a9d5, 0x37c837, 0x66558a][colorType];
+
+      return [
+        new THREE.MeshPhongMaterial({ color: accent, side: THREE.DoubleSide, shininess: 35 }),
+        new THREE.MeshPhongMaterial({ color: accent, side: THREE.DoubleSide, shininess: 35 }),
+        new THREE.MeshPhongMaterial({
+          color: 0xbdbdbd,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.45,
+          depthWrite: false,
+          shininess: 8,
+        }),
+      ];
+    },
   },
 ];
