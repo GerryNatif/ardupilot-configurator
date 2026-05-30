@@ -1,11 +1,11 @@
 import {
-  TranslateLoader
-} from "./chunk-LBA7F4HV.js";
-import {
   HttpBackend,
   HttpClient
 } from "./chunk-5AXV6LK6.js";
 import "./chunk-N6ESZ57B.js";
+import {
+  TranslateLoader
+} from "./chunk-LBA7F4HV.js";
 import {
   Injectable,
   setClassMetadata

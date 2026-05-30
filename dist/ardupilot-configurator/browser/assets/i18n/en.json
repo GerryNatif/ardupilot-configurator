@@ -43,6 +43,8 @@
       "webserial_not_supported": "WebSerial API is not supported by this browser. Please use Chrome or Edge.",
       "writer_unavailable": "Serial writer unavailable: the port is not connected.",
       "no_port_selected": "No serial port selected.",
+      "port_selection_cancelled": "Port selection was cancelled.",
+      "only_usb_supported": "Only USB serial ports are supported for connection.",
       "port_not_readable": "Serial port is not readable or writable after opening.",
       "port_open_failed": "Unable to open the serial port. Make sure no other application is using it, reconnect the USB cable, and try again. Details: {{reason}}"
     },

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NEVER, ReplaySubject } from 'rxjs';
 import { vi } from 'vitest';
 
-import { AppError } from '../../../core/services/error/app-error';
+import { AppError } from '../../error/app-error';
 import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { MavlinkParserService } from '../protocol/mavlink-parser.service';
 import { ParameterStore } from '../state/parameter.store';

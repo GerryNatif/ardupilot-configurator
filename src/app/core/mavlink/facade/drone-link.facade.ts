@@ -64,7 +64,13 @@ export class DroneLinkFacade {
 
   async connect(baudrate: number): Promise<void> {
     this.sessionReadySig.set(false);
-    await this.transport.connect(baudrate);
+    try {
+      await this.transport.connect(baudrate);
+    } catch (error) {
+      await this.transport.disconnect();
+      throw error;
+    }
+
     this.persistLastBaudRate(baudrate);
     try {
       await this.bootstrap.initialize();

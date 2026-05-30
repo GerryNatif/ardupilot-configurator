@@ -5,7 +5,7 @@ import {
   ParameterSaveWorkflow,
   ParameterWriteChange,
 } from './parameter-save-workflow';
-import { SaveParam } from './save-param';
+import { SaveParam } from '../save-param';
 
 /**
  * Service de session de brouillon pour les modifications de parametres.

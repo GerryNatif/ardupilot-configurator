@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { SaveParam } from '../../../core/parameter/param-page/save-param';
+import { SaveParam } from '../../../core/parameter/save-param';
 
 @Component({
   selector: 'app-save-btn',

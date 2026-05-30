@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { vi } from 'vitest';
 
-import { AppError } from '../../../core/services/error/app-error';
+import { AppError } from '../../error/app-error';
 import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { LinkStatus, TelemetryState } from '../models/telemetry.model';
 import { ParameterMetadataService } from '../services/parameter-metadata.service';
@@ -146,6 +146,21 @@ describe('DroneLinkFacade', () => {
     expect(transportMock.disconnect).toHaveBeenCalledTimes(1);
     expect(service.isConnected()).toBe(false);
     expect(service.linkStatus()).toBe('disconnected');
+  });
+
+  it('connect() force disconnected si transport.connect() echoue', async () => {
+    const transportError = new Error('open failed');
+    transportMock.connect.mockImplementationOnce(async () => {
+      statusSubject.next('connecting');
+      throw transportError;
+    });
+
+    await expect(service.connect(115200)).rejects.toBe(transportError);
+
+    expect(transportMock.disconnect).toHaveBeenCalledTimes(1);
+    expect(bootstrapMock.initialize).not.toHaveBeenCalled();
+    expect(service.linkStatus()).toBe('disconnected');
+    expect(service.isConnected()).toBe(false);
   });
 
   it('tryAutoConnect() retourne false si aucun port autorise nest disponible', async () => {

@@ -5,7 +5,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 
 import { App } from './app';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
-import { Theme } from './core/services/theme';
+import { Theme } from './core/theme/theme';
 
 describe('App', () => {
   beforeEach(async () => {

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { SerialTransportService } from './serial-transport.service';
-import { AppError } from '../../../core/services/error/app-error';
+import { AppError } from '../../error/app-error';
 
 describe('SerialTransportService', () => {
   let service: SerialTransportService;
