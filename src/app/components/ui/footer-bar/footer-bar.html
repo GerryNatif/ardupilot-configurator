@@ -1,4 +1,6 @@
 <div class="footer-bar">
-	<span class="footer-bar__status">FC: disconnected</span>
-	<span class="footer-bar__meta">ArduConfig</span>
+  @if (isConnected()) {
+    <app-sensors-status class="footer-sensors"></app-sensors-status>
+  }
+  <span class="footer-bar__meta">ArduConfig</span>
 </div>

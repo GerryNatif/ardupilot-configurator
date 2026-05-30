@@ -3,7 +3,7 @@
   background: var(--app-bg);
   color: var(--text);
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   overflow: hidden;
 }
 
@@ -11,9 +11,40 @@
   display: none;
 }
 
-.app-shell__header,
 .app-shell__footer {
   width: 100%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 2100;
+  border: 0;
+  background: var(--surface-200);
+  color: var(--text);
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu-btn__icon {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: currentColor;
+  mask-image: var(--icon-url);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
 }
 
 .app-shell__main {
@@ -69,45 +100,6 @@
   right: 0;
 }
 
-.app-error-dialog__backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 3500;
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  background: rgba(10, 14, 22, 0.45);
-  backdrop-filter: blur(3px);
-}
-
-.app-error-dialog__card {
-  width: min(92vw, 520px);
-  border-radius: 14px;
-  border: 1px solid var(--border-color);
-  background: var(--surface-100);
-  color: var(--text);
-  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.28);
-  padding: 1rem;
-}
-
-.app-error-dialog__title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.app-error-dialog__message {
-  margin: 0.8rem 0 0;
-  color: var(--text);
-  line-height: 1.45;
-}
-
-.app-error-dialog__actions {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
 @media (max-width: 1055px) {
   .app-shell__main {
     grid-template-columns: 4rem minmax(0, 1fr);
@@ -115,6 +107,20 @@
 }
 
 @media (max-width: 575px) {
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-shell__page-scroll {
+    padding-top: 3.5rem;
+  }
+
+  .app-shell__sidebar.reveal + .app-shell__workspace .mobile-menu-btn {
+    display: none;
+  }
+
   .app-shell__main {
     grid-template-columns: 1fr;
   }

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/receiver/receiver.scss"],
-  "sourcesContent": [".sticks-container {\r\n  display: flex;\r\n  gap: 2rem;\r\n  justify-content: center;\r\n  align-items: center;\r\n}\r\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,OAAA;AACA,mBAAA;AACA,eAAA;;",
-  "names": []
-}

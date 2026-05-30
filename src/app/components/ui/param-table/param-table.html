@@ -49,7 +49,7 @@
                         [style.width]="getNumberInputWidth(row)"
                         [disabled]="isRowDisabled(row)"
                         [attr.aria-label]="row.title || row.name"
-                        (input)="onNumberChange(row, $event)"
+                        (change)="onNumberChange(row, $event)"
                       />
                       @if (row.unit) {
                         <span class="param-table__unit">{{ row.unit }}</span>
@@ -59,7 +59,6 @@
 
                   @case ('select') {
                     <select
-                      class="param-table__select"
                       [value]="row.unavailable ? '' : row.value"
                       [disabled]="isRowDisabled(row)"
                       [attr.aria-label]="row.title || row.name"

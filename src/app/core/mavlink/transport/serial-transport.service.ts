@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { LinkStatus } from '../models/telemetry.model';
 import { MavTransport } from './transport.types';
-import { AppError } from '../../../core/services/error/app-error';
+import { AppError } from '../../error/app-error';
 
 /**
  * Service de transport MAVLink via Web Serial.
@@ -66,16 +66,23 @@ export class SerialTransportService implements MavTransport {
     }
 
     this.statusSubject.next('connecting');
-    
-    const serial = navigator.serial;
 
-    // Reutilise un port deja autorise pour eviter de redemander l'appareil.
-    if (!this.port) {
-      const authorizedPorts = await serial.getPorts();
-      this.port = authorizedPorts[0] ?? await serial.requestPort();
+    try {
+      const serial = navigator.serial;
+
+      // Reutilise un port deja autorise pour eviter de redemander l'appareil.
+      if (!this.port) {
+        const authorizedPorts = await serial.getPorts();
+        this.port = authorizedPorts[0] ?? await serial.requestPort();
+      }
+
+      await this.openCurrentPort(baudRate);
+    } catch (error) {
+      if (this.statusSubject.value !== 'disconnected') {
+        this.statusSubject.next('disconnected');
+      }
+      throw error;
     }
-
-    await this.openCurrentPort(baudRate);
   }
 
   async disconnect(): Promise<void> {

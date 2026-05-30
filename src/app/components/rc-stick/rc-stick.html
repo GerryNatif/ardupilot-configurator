@@ -2,4 +2,15 @@
   <div class="stick-background">
     <div class="stick" [style.transform]="transform()"></div>
   </div>
+
+  <div class="stick-legend" aria-hidden="true">
+    <div class="stick-legend__line">
+      <img [src]="horizontalIconPath" alt="" width="16" height="16" />
+      <span>{{ xLabel() }}</span>
+    </div>
+    <div class="stick-legend__line">
+      <img [src]="verticalIconPath" alt="" width="16" height="16" />
+      <span>{{ yLabel() }}</span>
+    </div>
+  </div>
 </div>

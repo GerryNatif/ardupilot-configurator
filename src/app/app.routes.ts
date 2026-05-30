@@ -20,7 +20,7 @@ import { connectedGuard } from './core/guards/connected.guard';
 
 export const routes: Routes = [
   { path: '', component: Accueil },
-  { path: 'dashboard', component: Dashboard, canActivate: [connectedGuard] },
+  //{ path: 'dashboard', component: Dashboard, canActivate: [connectedGuard] },
   { path: 'connection', component: Connection },
   { path: 'configuration', component: Configuration, canActivate: [connectedGuard] },
   { path: 'power', component: Power, canActivate: [connectedGuard] },
@@ -36,5 +36,5 @@ export const routes: Routes = [
   { path: 'led-strip', component: LedStrip, canActivate: [connectedGuard] },
   { path: 'blackbox', component: Blackbox, canActivate: [connectedGuard] },
   { path: 'help', component: Help },
-  { path: '**', redirectTo: '' } // toute route inconnue redirige vers l'accueil
+  { path: '**', redirectTo: '' }, // toute route inconnue redirige vers l'accueil
 ];

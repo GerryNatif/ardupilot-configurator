@@ -4,8 +4,8 @@ import {
   ParamTableValueChangeEvent,
 } from '../../components/ui/param-table/param-table';
 import { TitlePage } from '../../components/ui/title-page/title-page';
-import { ParameterDraftSession } from '../../core/services/param-page/parameter-draft-session';
-import { ParamPageBase } from '../../core/services/param-page/param-page-base';
+import { ParameterDraftSession } from '../../core/parameter/param-page/parameter-draft-session';
+import { ParamPageBase } from '../../core/parameter/param-page/param-page-base';
 import { RtlVisualizer } from "../../components/rtl-visualizer/rtl-visualizer";
 
 const FAILSAFE_PARAMETER_NAMES: ReadonlyArray<string> = [

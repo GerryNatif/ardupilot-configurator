@@ -5,16 +5,26 @@
     (click)="closeSidebar()"
   ></div>
 
-  <header class="app-shell__header">
-    <app-header (menuToggle)="toggleSidebar()"></app-header>
-  </header>
-
   <main class="app-shell__main">
     <aside class="app-shell__sidebar" [class.reveal]="isSidebarRevealed">
       <app-sidebar-navigation [mode]="sidebarMode()"></app-sidebar-navigation>
     </aside>
 
     <div class="app-shell__workspace">
+      <button
+        class="mobile-menu-btn"
+        type="button"
+        [attr.aria-label]="isSidebarRevealed ? 'Fermer le menu' : 'Ouvrir le menu'"
+        [attr.aria-expanded]="isSidebarRevealed"
+        (click)="toggleSidebar()"
+      >
+        <span
+          class="mobile-menu-btn__icon"
+          aria-hidden="true"
+          [style.--icon-url]="menuIconUrl"
+        ></span>
+      </button>
+
       <div class="app-shell__savebar">
         <app-save-btn></app-save-btn>
       </div>
@@ -32,11 +42,11 @@
   </footer>
 
   @if (errorDialog().open) {
-    <div class="app-error-dialog__backdrop" role="presentation" (click)="closeErrorDialog()">
-      <section class="app-error-dialog__card" role="dialog" aria-modal="true" [attr.aria-label]="errorDialog().titleKey | translate" (click)="$event.stopPropagation()">
-        <h2 class="app-error-dialog__title">{{ errorDialog().titleKey | translate }}</h2>
-        <p class="app-error-dialog__message">{{ errorDialog().messageKey | translate: errorDialog().messageParams }}</p>
-        <div class="app-error-dialog__actions">
+    <div class="popup__backdrop" role="presentation" (click)="closeErrorDialog()">
+      <section class="popup__card" role="dialog" aria-modal="true" [attr.aria-label]="errorDialog().titleKey | translate" (click)="$event.stopPropagation()">
+        <h2 class="popup__title">{{ errorDialog().titleKey | translate }}</h2>
+        <p class="popup__message">{{ errorDialog().messageKey | translate: errorDialog().messageParams }}</p>
+        <div class="popup__actions">
           <button type="button" class="regular-button" (click)="closeErrorDialog()">OK</button>
         </div>
       </section>

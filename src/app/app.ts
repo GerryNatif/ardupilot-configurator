@@ -3,21 +3,20 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { Header as HeaderComponent } from './components/ui/header/header';
 import { SidebarNavigation as SidebarNavigationComponent } from './components/ui/sidebar-navigation/sidebar-navigation';
 import { FooterBar as FooterBarComponent } from './components/ui/footer-bar/footer-bar';
 import { SaveBtn } from './components/ui/save-btn/save-btn';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
-import { Theme } from './core/services/theme';
-import { UiErrorService } from './core/services/error/ui-error.service';
+import { Theme } from './core/theme/theme';
+import { UiErrorService } from './core/error/ui-error.service';
+import { connectedGuard } from './core/guards/connected.guard';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
-    HeaderComponent, 
-    SidebarNavigationComponent, 
+    RouterOutlet,
+    SidebarNavigationComponent,
     FooterBarComponent,
     SaveBtn,
     TranslatePipe,
@@ -27,6 +26,7 @@ import { UiErrorService } from './core/services/error/ui-error.service';
 })
 export class App {
   protected readonly title = signal('ardupilot-configurator');
+  readonly menuIconUrl = 'url(/assets/icons/menu.svg)';
   private readonly theme = inject(Theme);
   private readonly link = inject(DroneLinkFacade);
   private readonly router = inject(Router);
@@ -40,6 +40,21 @@ export class App {
     effect(() => {
       const kind = this.link.vehicleIdentity().vehicleKind;
       this.theme.applyVehicleTheme(kind);
+    });
+
+    effect(() => {
+      if (this.link.isConnected()) {
+        return;
+      }
+
+      const currentUrl = this.router.url.split('?')[0] ?? '/';
+      if (!this.isGuardedRoute(currentUrl)) {
+        return;
+      }
+
+      void this.router.navigate(['/connection'], {
+        queryParams: { returnUrl: currentUrl },
+      });
     });
 
     this.router.events
@@ -68,5 +83,16 @@ export class App {
 
   closeErrorDialog(): void {
     this.uiError.close();
+  }
+
+  private isGuardedRoute(url: string): boolean {
+    const normalizedUrl = url.startsWith('/') ? url.slice(1) : url;
+    const matchedRoute = this.router.config.find((route) => route.path === normalizedUrl);
+
+    if (!matchedRoute?.canActivate?.length) {
+      return false;
+    }
+
+    return matchedRoute.canActivate.includes(connectedGuard);
   }
 }

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/components/ui/save-btn/save-btn.scss"],
-  "sourcesContent": [":host {\r\n    display: block;\r\n    pointer-events: auto;\r\n}\r\n\r\n.content_toolbar {\r\n    width: fit-content;\r\n    background-color: var(--surface-300);\r\n    box-shadow: #0000001a 0 -.5rem .5rem;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: end;\r\n    gap: .5rem;\r\n    padding: .75rem 1rem;\r\n    border-top-left-radius: 1.5rem;\r\n}"],
-  "mappings": ";AAAA;AACI,WAAA;AACA,kBAAA;;AAGJ,CAAA;AACI,SAAA;AACA,oBAAA,IAAA;AACA,cAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA,cAAA,EAAA,QAAA;AACA,WAAA;AACA,eAAA;AACA,mBAAA;AACA,OAAA;AACA,WAAA,QAAA;AACA,0BAAA;;",
-  "names": []
-}

@@ -1,24 +1,19 @@
 @if (open()) {
-	<div class="popup-backdrop" role="presentation" (click)="onBackdropClick($event)">
-		<section class="popup-card" role="dialog" aria-modal="true" [attr.aria-label]="title()">
-			<h2 class="popup-title">{{ title() }}</h2>
+	<div class="popup__backdrop" role="presentation" (click)="onBackdropClick($event)">
+		<section class="popup__card" role="dialog" aria-modal="true" [attr.aria-label]="title()">
+			<h2 class="popup__title">{{ title() }}</h2>
 
-			<div class="popup-content">
+			<div class="popup__content">
 				<ng-content select="[popup-body]"></ng-content>
-				@if (paragraphs().length > 0) {
-					@for (paragraph of paragraphs(); track paragraph) {
-						<p>{{ paragraph }}</p>
-					}
-				}
 			</div>
 
-			<div class="popup-actions">
+			<div class="popup__actions">
 				<ng-content select="[popup-actions]"></ng-content>
 				@if (showDefaultActions()) {
-					<button type="button" class="popup-btn popup-btn--confirm" (click)="onConfirm()">
+					<button type="button" class="popup__btn popup__btn--confirm" (click)="onConfirm()">
 						{{ confirmLabel() }}
 					</button>
-					<button type="button" class="popup-btn popup-btn--cancel" (click)="onCancel()">
+					<button type="button" class="popup__btn popup__btn--cancel" (click)="onCancel()">
 						{{ cancelLabel() }}
 					</button>
 				}

@@ -1,9 +1,9 @@
 import {
-  CopyShader
-} from "./chunk-INMG3ZQ5.js";
-import {
   ShaderPass
 } from "./chunk-ZPURPKSH.js";
+import {
+  CopyShader
+} from "./chunk-INMG3ZQ5.js";
 import {
   Pass
 } from "./chunk-KJ6FXN3Y.js";

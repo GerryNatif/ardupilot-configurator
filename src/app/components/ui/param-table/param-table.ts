@@ -77,10 +77,10 @@ export class ParamTable {
   hasHelp(row: ParamTableRow): boolean {
     return Boolean(
       row.helpTitle?.trim() ||
-        row.helpDescription?.trim() ||
-        row.description?.trim() ||
-        row.title?.trim() ||
-        row.helpItems?.length
+      row.helpDescription?.trim() ||
+      row.description?.trim() ||
+      row.title?.trim() ||
+      row.helpItems?.length,
     );
   }
 
@@ -134,15 +134,55 @@ export class ParamTable {
       return;
     }
 
-    const nextValue = Number(inputElement.value);
-    if (!Number.isFinite(nextValue)) {
+    const raw = inputElement.value;
+    if (raw.trim() === '') {
+      return; // evite d'emettre 0 pendant une saisie vide temporaire
+    }
+
+    const parsedValue = Number(raw);
+    if (!Number.isFinite(parsedValue)) {
       return;
     }
 
+    const normalizedValue = this.normalizeNumberValue(row, parsedValue);
+
+    // reflète la valeur corrigée immediatement dans l'UI
+    inputElement.value = String(normalizedValue);
+
     this.valueChange.emit({
       name: row.name,
-      value: nextValue,
+      value: normalizedValue,
     });
+  }
+
+  private normalizeNumberValue(row: ParamTableRow, value: number): number {
+    let normalized = value;
+
+    if (typeof row.min === 'number' && Number.isFinite(row.min)) {
+      normalized = Math.max(normalized, row.min);
+    }
+
+    if (typeof row.max === 'number' && Number.isFinite(row.max)) {
+      normalized = Math.min(normalized, row.max);
+    }
+
+    if (typeof row.step === 'number' && Number.isFinite(row.step) && row.step > 0) {
+      const base = typeof row.min === 'number' && Number.isFinite(row.min) ? row.min : 0;
+      const snapped = base + Math.round((normalized - base) / row.step) * row.step;
+      const decimals = this.countDecimals(row.step);
+
+      normalized = decimals > 0 ? Number(snapped.toFixed(decimals)) : snapped;
+
+      // reclamp apres snap
+      if (typeof row.min === 'number' && Number.isFinite(row.min)) {
+        normalized = Math.max(normalized, row.min);
+      }
+      if (typeof row.max === 'number' && Number.isFinite(row.max)) {
+        normalized = Math.min(normalized, row.max);
+      }
+    }
+
+    return normalized;
   }
 
   onSelectChange(row: ParamTableRow, event: Event): void {
@@ -168,10 +208,13 @@ export class ParamTable {
     }
 
     const values = [row.min, row.max, this.toFiniteNumber(row.value)].filter(
-      (value): value is number => value != null
+      (value): value is number => value != null,
     );
 
-    return values.reduce((maxDecimals, value) => Math.max(maxDecimals, this.countDecimals(value)), 0);
+    return values.reduce(
+      (maxDecimals, value) => Math.max(maxDecimals, this.countDecimals(value)),
+      0,
+    );
   }
 
   private formatNumberForWidth(value: number, decimals: number): string {

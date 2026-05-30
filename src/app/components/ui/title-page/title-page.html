@@ -1,6 +1,25 @@
 <div class="title-bar">
   <h1>{{ title() }}</h1>
-  @if (actionUrl()) {
-    <a [href]="actionUrl()" [target]="actionTarget()">{{ actionLabel() }}</a>
+
+  @if (resolvedActions().length > 0) {
+    <div class="title-bar__actions">
+      @for (action of resolvedActions(); track action.id) {
+        @if (action.url) {
+          <a
+            [href]="action.url"
+            [target]="action.target || '_blank'"
+            [attr.aria-disabled]="action.disabled === true"
+            [class.is-disabled]="action.disabled === true"
+            (click)="onActionClick(action, $event)"
+          >
+            {{ action.label }}
+          </a>
+        } @else {
+          <button type="button" [disabled]="action.disabled === true" (click)="onActionClick(action)">
+            {{ action.label }}
+          </button>
+        }
+      }
+    </div>
   }
 </div>

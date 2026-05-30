@@ -10,8 +10,14 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 export class RcStick {
   x = input<number>(0); // -100 -> +100
   y = input<number>(0); // -100 -> +100
+  xLabel = input<string>('RUDDER');
+  yLabel = input<string>('THROTTLE');
 
   private readonly maxTravelPx = 45;
+  private readonly iconBasePath = '/assets/icons/';
+
+  readonly horizontalIconPath = `${this.iconBasePath}arrow-left-right.svg`;
+  readonly verticalIconPath = `${this.iconBasePath}arrow-up-down.svg`;
 
   readonly clampedX = computed(() => this.clamp(this.x()));
   readonly clampedY = computed(() => this.clamp(this.y()));

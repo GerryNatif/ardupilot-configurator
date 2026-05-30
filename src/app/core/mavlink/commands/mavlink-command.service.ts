@@ -1,3 +1,24 @@
+/**
+ * Service centralisant l'envoi des commandes MAVLink sortantes vers le vehicule.
+ *
+ * Usage:
+ * - Envoyer les commandes de controle (arm/disarm, reboot).
+ * - Declencher les requetes MAVLink (parametres, version autopilote, cadence messages).
+ * - Normaliser les contraintes du protocole avant emission (ex: param_id limite a 16 caracteres).
+ *
+ * Ce service ne maintient pas d'etat metier: il construit les messages MAVLink
+ * puis delegue l'emission binaire au MavlinkParserService.
+ *
+ * Service that centralizes outbound MAVLink command dispatch to the vehicle.
+ *
+ * Usage:
+ * - Send control commands (arm/disarm, reboot).
+ * - Trigger MAVLink requests (parameters, autopilot version, message rates).
+ * - Normalize protocol constraints before send (for example, param_id limited to 16 characters).
+ *
+ * This service does not hold business state: it builds MAVLink messages,
+ * then delegates binary transmission to MavlinkParserService.
+ */
 import { Injectable } from '@angular/core';
 import { MavlinkParserService } from '../protocol/mavlink-parser.service';
 

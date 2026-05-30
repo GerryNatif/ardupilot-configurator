@@ -14,7 +14,7 @@ export interface ShapeControlDefinition {
   unit?: string;
 }
 
-export type ShapeType = 'wing' | 'hull' | 'fuselage' | 'stick';
+export type ShapeType = 'wing' | 'hull' | 'fuselage' | 'stick' | 'rotorDisk';
 
 export interface ShapeDefinition {
   type: ShapeType;
@@ -22,6 +22,10 @@ export interface ShapeDefinition {
   controls: ReadonlyArray<ShapeControlDefinition>;
   defaults: ShapeParameterMap;
   createGeometry: (params: ShapeParameterMap) => THREE.BufferGeometry;
+  createMaterials?: (
+    params: ShapeParameterMap,
+    baseColor: number,
+  ) => THREE.Material | THREE.Material[];
 }
 
 export interface ShapeSnapshot {

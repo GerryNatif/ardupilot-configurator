@@ -1,29 +1,66 @@
-<div class="tab_container">
-  <div id="tabs">
-    <ul [class]="'mode-' + mode()">
-      @for (item of visibleItems(); track item.key) {
-        <li
-          [class]="item.key"
-          [class.active]="isActive(item)"
-          [attr.id]="item.id ?? null"
-        >
-          <a
-            href="#"
-            (click)="onItemClick(item, $event)"
-            class="sidebar-link"
-            [attr.aria-label]="(item.translationKey | translate) || item.label"
-            [title]="(item.translationKey | translate) || item.label"
-          >
-            <span
-              class="tabicon-image"
-              [style.--icon-url]="'url(' + getIconPath(item) + ')'"
-              aria-hidden="true"
-            ></span>
-            <span class="tab-label">{{ (item.translationKey | translate) || item.label }}</span>
-          </a>
-        </li>
-      }
-    </ul>
-  </div>
-</div>
+<div class="sidebar-wrapper">
 
+  <div class="sidebar-brand">
+    <img class="sidebar-brand__logo" [src]="logoPath()" alt="Ardupilot" />
+    @if (isConnected()) {
+      <div class="sidebar-brand__version">
+        {{ detectedFirmware() }} {{ detectedVersion() }}
+      </div>
+    }
+  </div>
+
+  <div class="sidebar-connect">
+    @if (!isLinkActive()) {
+      <select class="sidebar-connect__baud" [(ngModel)]="selectedBaud" aria-label="Baud rate">
+        <option value="115200">115200</option>
+        <option value="230400">230400</option>
+        <option value="460800">460800</option>
+      </select>
+    }
+    <a
+      href="#"
+      class="sidebar-connect__btn"
+      [class.sidebar-connect__btn--connecting]="isConnecting()"
+      [class.sidebar-connect__btn--connected]="!isLinkActive()"
+      [class.sidebar-connect__btn--disconnect]="isLinkActive() && !isConnecting()"
+      [attr.aria-label]="connectionLabel()"
+      [attr.aria-disabled]="isConnecting() ? true : null"
+      [style.pointer-events]="isConnecting() ? 'none' : null"
+      [style.--icon-url]="'url(' + getNamedIconPath(isLinkActive() ? 'no-usb-cable.svg' : 'usb-cable.svg') + ')'"
+      (click)="onConnectionToggle($event)"
+    >
+      <span class="sidebar-connect__btn-icon" aria-hidden="true"></span>
+      <span class="sidebar-connect__btn-label">{{ connectionLabel() }}</span>
+    </a>
+  </div>
+
+  <div class="tab_container">
+    <div id="tabs">
+      <ul [class]="'mode-' + mode()">
+        @for (item of visibleItems(); track item.key) {
+          <li
+            [class]="item.key"
+            [class.active]="isActive(item)"
+            [attr.id]="item.id ?? null"
+          >
+            <a
+              href="#"
+              (click)="onItemClick(item, $event)"
+              class="sidebar-link"
+              [attr.aria-label]="(item.translationKey | translate) || item.label"
+              [title]="(item.translationKey | translate) || item.label"
+            >
+              <span
+                class="tabicon-image"
+                [style.--icon-url]="'url(' + getIconPath(item) + ')'"
+                aria-hidden="true"
+              ></span>
+              <span class="tab-label">{{ (item.translationKey | translate) || item.label }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+</div>

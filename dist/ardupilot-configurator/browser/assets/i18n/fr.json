@@ -13,14 +13,13 @@
   "tabPower": "Alimentation",
   "tabFailsafe": "Failsafe",
   "tabPresets": "Presets",
-  "tabPidTuning": "Reglage PID",
-  "tabReceiver": "Recepteur",
-  "tabModelEditor": "Editeur de modele",
+  "tabPidTuning": "Réglage PID",
+  "tabReceiver": "Récepteur",
+  "tabModelEditor": "Éditeur de modèle",
   "tabAuxiliary": "Auxiliaire",
   "tabAdjustments": "Ajustements",
-  "tabServos": "Servos",
   "tabGPS": "GPS",
-  "tabMotorTesting": "Test moteurs",
+  "tabMotor": "Moteur/Servo",
   "tabOsd": "OSD",
   "tabVtx": "VTX",
   "tabTransponder": "Transpondeur",
@@ -41,9 +40,10 @@
     },
     "transport": {
       "webserial_not_supported": "L'API WebSerial n'est pas supportée par ce navigateur. Veuillez utiliser Chrome ou Edge.",
-      "writer_unavailable": "Écrivain série indisponible : le port n'est pas connecté.",
+      "writer_unavailable": "Écriture sur le port série indisponible : le port n'est pas connecté.",
       "no_port_selected": "Aucun port série sélectionné.",
-      "port_not_readable": "Le port série n'est pas lisible ou inscriptible après ouverture."
+      "port_not_readable": "Le port série n'est pas lisible ou inscriptible après ouverture.",
+      "port_open_failed": "Impossible d'ouvrir le port série. Vérifiez qu'il n'est pas utilisé par une autre application, reconnectez le câble USB et réessayez. Détail: {{reason}}"
     },
     "mavlink": {
       "invalid_start_byte": "La trame sortante n'est pas MAVLink2 (octet de début attendu : 0xFD = 253)."
@@ -59,6 +59,9 @@
     },
     "http": {
       "request_failed": "La requête HTTP a échoué avec le statut {{status}} (URL : {{url}})."
+    },
+    "metadata": {
+      "version_unavailable": "Les métadonnées de paramètres n'ont pas pu être chargées : version firmware ou type de véhicule non détecté. Les paramètres seront affichés sans description ni contraintes."
     }
   }
 }
