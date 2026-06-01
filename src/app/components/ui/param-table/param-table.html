@@ -1,5 +1,6 @@
 <div class="param-table">
   <app-gui-box [title]="section().title">
+    <ng-content select="[gui-before]" gui-before></ng-content>
     <div class="param-table__table-wrap">
       <table class="param-table__table">
         @if (showHeader()) {

@@ -12,34 +12,35 @@
   <div class="row gap-lg">
     @for (config of batteryConfigs(); track config.index) {
       <div class="col-4 col-md-12">
-        @if (isVoltageMeasurementType(config.monitorType)) {
-          <div class="chemistry-selector">
-            <select
-              class="chemistry-selector__select"
-              #chemSelect
-              (change)="onChemistryChange(config.index, chemSelect.value)"
-            >
-              <option value="" [selected]="getSelectedChemistry(config.index) === ''">— Chimie —</option>
-              @for (c of chemistries; track c.id) {
-                <option [value]="c.id" [selected]="c.id === getSelectedChemistry(config.index)">{{ c.name }}</option>
-              }
-            </select>
-            <select
-              class="chemistry-selector__select"
-              #cellSelect
-              (change)="onCellCountChange(config.index, +cellSelect.value)"
-            >
-              @for (n of cellCounts; track n) {
-                <option [value]="n" [selected]="n === getSelectedCellCount(config.index)">{{ n }}S</option>
-              }
-            </select>
-          </div>
-        }
         <app-param-table
           [section]="config.section"
           [disabled]="!isConnected()"
           (valueChange)="onParameterValueChange($event)"
-        />
+        >
+          @if (isVoltageMeasurementType(config.monitorType)) {
+            <div gui-before class="chemistry-selector">
+              <select
+                class="chemistry-selector__select"
+                #chemSelect
+                (change)="onChemistryChange(config.index, chemSelect.value)"
+              >
+                <option value="" [selected]="getSelectedChemistry(config.index) === ''">— Chimie —</option>
+                @for (c of chemistries; track c.id) {
+                  <option [value]="c.id" [selected]="c.id === getSelectedChemistry(config.index)">{{ c.name }}</option>
+                }
+              </select>
+              <select
+                class="chemistry-selector__select"
+                #cellSelect
+                (change)="onCellCountChange(config.index, +cellSelect.value)"
+              >
+                @for (n of cellCounts; track n) {
+                  <option [value]="n" [selected]="n === getSelectedCellCount(config.index)">{{ n }}S</option>
+                }
+              </select>
+            </div>
+          }
+        </app-param-table>
       </div>
     }
   </div>
