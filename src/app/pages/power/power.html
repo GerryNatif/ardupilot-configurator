@@ -1,21 +1,25 @@
-<app-title-page title="Alimentation" />
+<app-title-page
+  title="Alimentation"
+  [actions]="addBatteryAction()"
+  (actionTriggered)="$event.id === 'add-battery' && addBattery()"
+/>
 
 <div class="container-fluid">
-  <div class="row gap-lg">
-    <div class="col-6 col-md-12">
-      <app-param-table
-        [section]="powerSection()"
-        [disabled]="!isConnected()"
-        (valueChange)="onPowerParameterValueChange($event)"
-      ></app-param-table>
-    </div>
+  @if (batteryConfigs().length === 0) {
+    <p class="power__empty">Aucun moniteur de batterie configuré. Cliquez sur "Ajouter une alimentation" pour commencer.</p>
+  }
 
-    <div class="col-6 col-md-12">
-      <app-param-table
-        [section]="logBitmaskSection()"
-        [disabled]="!isConnected()"
-        (valueChange)="onPowerParameterValueChange($event)"
-      ></app-param-table>
-    </div>
-  </div>
+  @for (config of batteryConfigs(); track config.index) {
+    <app-param-table
+      [section]="config.section"
+      [disabled]="!isConnected()"
+      (valueChange)="onParameterValueChange($event)"
+    />
+  }
+
+  <app-param-table
+    [section]="logBitmaskSection()"
+    [disabled]="!isConnected()"
+    (valueChange)="onParameterValueChange($event)"
+  />
 </div>
