@@ -46,7 +46,6 @@ const BATT_COMMON_BASE_NAMES: ReadonlyArray<string> = [
 ];
 
 const VOLTAGE_FILL_BASE_NAMES: ReadonlyArray<string> = ['MAX_VOLT', 'LOW_VOLT', 'CRT_VOLT', 'ARM_VOLT'];
-const LOG_BITMASK_PARAM = 'LOG_BITMASK';
 const MAX_BATTERY_INDEX = 9;
 
 function battParamName(index: number, baseName: string): string {
@@ -152,21 +151,6 @@ export class Power extends ParamPageBase {
       return { index, section, monitorType };
     });
   });
-
-  private readonly logBitmaskSectionBase = this.paramBuilder.buildBitmaskSectionSignal({
-    id: 'power-log-bitmask',
-    title: 'Journalisation',
-    parameterNames: [LOG_BITMASK_PARAM],
-    display: {
-      showName: false,
-      showTitle: true,
-      showDescription: false,
-      showHelp: true,
-    },
-    includeUnavailable: true,
-  });
-
-  readonly logBitmaskSection = computed(() => this.withDrafts(this.logBitmaskSectionBase()));
 
   constructor() {
     super();
