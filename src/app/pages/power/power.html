@@ -20,8 +20,7 @@
           @if (isVoltageMeasurementType(config.monitorType)) {
             <div gui-before class="chemistry-selector">
               <select
-                class="chemistry-selector__select"
-                #chemSelect
+    #chemSelect
                 (change)="onChemistryChange(config.index, chemSelect.value)"
               >
                 <option value="" [selected]="getSelectedChemistry(config.index) === ''">— Chimie —</option>
@@ -30,8 +29,7 @@
                 }
               </select>
               <select
-                class="chemistry-selector__select"
-                #cellSelect
+    #cellSelect
                 (change)="onCellCountChange(config.index, +cellSelect.value)"
               >
                 @for (n of cellCounts; track n) {
