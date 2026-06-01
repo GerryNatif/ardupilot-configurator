@@ -9,17 +9,16 @@
     <p class="power__empty">Aucun moniteur de batterie configuré. Cliquez sur "Ajouter une alimentation" pour commencer.</p>
   }
 
-  @for (config of batteryConfigs(); track config.index) {
-    <app-param-table
-      [section]="config.section"
-      [disabled]="!isConnected()"
-      (valueChange)="onParameterValueChange($event)"
-    />
-  }
+  <div class="row gap-lg">
+    @for (config of batteryConfigs(); track config.index) {
+      <div class="col-4 col-md-12">
+        <app-param-table
+          [section]="config.section"
+          [disabled]="!isConnected()"
+          (valueChange)="onParameterValueChange($event)"
+        />
+      </div>
+    }
+  </div>
 
-  <app-param-table
-    [section]="logBitmaskSection()"
-    [disabled]="!isConnected()"
-    (valueChange)="onParameterValueChange($event)"
-  />
 </div>

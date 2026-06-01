@@ -76,7 +76,7 @@ function getTypeSpecificBaseNames(monitorType: number): ReadonlyArray<string> {
   selector: 'app-power',
   imports: [TitlePage, ParamTable],
   templateUrl: './power.html',
-  styleUrl: './power.scss',
+  styleUrls: ['./power.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ParameterDraftSession],
 })
@@ -140,21 +140,6 @@ export class Power extends ParamPageBase {
       return { index, section };
     });
   });
-
-  private readonly logBitmaskSectionBase = this.paramBuilder.buildBitmaskSectionSignal({
-    id: 'power-log-bitmask',
-    title: 'Journalisation',
-    parameterNames: [LOG_BITMASK_PARAM],
-    display: {
-      showName: false,
-      showTitle: true,
-      showDescription: false,
-      showHelp: true,
-    },
-    includeUnavailable: true,
-  });
-
-  readonly logBitmaskSection = computed(() => this.withDrafts(this.logBitmaskSectionBase()));
 
   constructor() {
     super();
