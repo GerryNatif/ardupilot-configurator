@@ -26,6 +26,10 @@ Issues identified during review but not caused by this change — pre-existing t
 
 - **`locallyAddedIndices` non vidé au disconnect** — Les batteries ajoutées localement (non sauvegardées) restent visibles après déconnexion. Les params seront marqués "unavailable" mais les gui-boxes persistent. Fix : écouter le changement de `isConnected()` et réinitialiser `locallyAddedIndices` à `[]` lors du passage à `false`.
 
+## From: power-chemistry-autofill review (2026-06-01)
+
+- **Drift IEEE 754 dans `round2`** — `Math.round(v * 100) / 100` peut produire 8.39 au lieu de 8.40 pour certaines combinaisons (ex: NiMH 6S : 1.4 × 6 = 8.399999…). Fix : remplacer par `parseFloat((v * cellCount).toFixed(2))`. Impact faible (paramBuilder normalise via increment si métadonnées disponibles).
+
 ## From: power-multi-battery-core (2026-06-01)
 
 - **CAP-4 — Chemistry preset auto-fill** — Sélecteur chimie (LiPo, Li-Ion, LiFe, NiMH) + nombre de cellules → auto-remplissage de MAX_VOLT, LOW_VOLT, CRT_VOLT, ARM_VOLT depuis `src/assets/data/battery-chemistries.json`. Visible uniquement pour les types de moniteur mesurant la tension (BATT_MONITOR = 3, 4, 25). Schéma JSON et valeurs de référence définis dans `_bmad-output/specs/spec-power-multi-battery/battery-chemistries.md`.

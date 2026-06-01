@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lipo",
+    "name": "LiPo",
+    "cellVoltages": {
+      "max": 4.20,
+      "low": 3.70,
+      "critical": 3.50,
+      "arm": 3.85
+    }
+  },
+  {
+    "id": "li-ion",
+    "name": "Li-Ion",
+    "cellVoltages": {
+      "max": 4.10,
+      "low": 3.50,
+      "critical": 3.30,
+      "arm": 3.70
+    }
+  },
+  {
+    "id": "life",
+    "name": "LiFe (A123)",
+    "cellVoltages": {
+      "max": 3.60,
+      "low": 3.20,
+      "critical": 3.00,
+      "arm": 3.30
+    }
+  },
+  {
+    "id": "nimh",
+    "name": "NiMH",
+    "cellVoltages": {
+      "max": 1.40,
+      "low": 1.10,
+      "critical": 1.00,
+      "arm": 1.20
+    }
+  }
+]
