@@ -1,1 +1,14 @@
+# Dépendances
 node_modules
+
+# Artefacts de build — produits par `ng build` / `ng test`, jamais commités.
+# Ils ont été suivis jusqu'au 2026-11-18 (62 fichiers de dist/, 79 de .angular/
+# dont un cache binaire de 4,7 Mo) : le `git status` d'ouverture de session
+# portait huit lignes de bruit en permanence. Garde mécanique :
+# .githooks/check_no_build_artifacts.py
+dist
+.angular
+out-tsc
+
+# Divers
+*.log
