@@ -52,7 +52,12 @@ export class SidebarNavigation {
 
   readonly vehicleIdentity = this.link.vehicleIdentity;
   readonly isConnected = this.link.isConnected;
-  readonly isLinkActive = computed(() => this.link.linkStatus() !== 'disconnected');
+  // ⚠️ 'error' n'est PAS un lien actif : sinon le bouton propose « Déconnecter »
+  // sur un port qui n'a jamais été ouvert (deferred-work, revue sidebar 2026-05-30).
+  readonly isLinkActive = computed(() => {
+    const status = this.link.linkStatus();
+    return status !== 'disconnected' && status !== 'error';
+  });
   readonly isConnecting = computed(() => this.link.linkStatus() === 'connecting');
   readonly connectionLabel = computed(() => (this.isLinkActive() ? 'Déconnecter' : 'Connexion'));
   readonly detectedFirmware = computed(() => this.vehicleIdentity().firmwareFamily);

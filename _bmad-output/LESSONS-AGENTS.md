@@ -37,6 +37,34 @@ renumérote.
 
 ---
 
+### L-004 : une fusion peut DÉFAIRE un comportement sans rien casser — et un état mort reste déclaré dans son type
+
+- **Symptôme** — 2026-11-18. `LinkStatus` déclare quatre valeurs dont `'error'`, le test du transport
+  l'attend, et `grep -rn "'error'" src/app/core` n'en trouve **aucune émission** : la seule occurrence
+  hors du type est l'assertion du test. Une connexion qui échoue retombait donc sur `'disconnected'`,
+  **indiscernable** d'un drone jamais branché. Rien ne lève, rien ne se voit à l'écran : l'interface
+  affiche simplement « pas connecté », ce qui est plausible.
+- **Cause, comptée commit par commit** — `next('error')` : **3** occurrences au commit initial
+  (`4f4c49f`), **0** en `f839be0`, **3** à nouveau en `d3e8d42`, **0** à HEAD. La fusion `3549b69` a
+  deux parents : `d3e8d42` (3 occurrences) et `e31fe5e` (0). Sa résolution a retenu **le côté sans
+  `'error'`** — les deux branches avaient réécrit la même zone, et le résultat ne porte aucune trace
+  du comportement perdu.
+- **Règle** — **une fusion n'est pas une addition** : quand deux branches ont touché la même zone, ce
+  qui disparaît ne laisse ni conflit résiduel ni commentaire. Après une fusion qui porte sur du code
+  de comportement, compter ce qui doit y être (`git show <parent>:<fichier> | grep -c <motif>` sur
+  **chaque** parent, puis sur le résultat) plutôt que relire le diff — un `--stat` ne montre pas une
+  absence. Corollaire : **une valeur déclarée dans un type union et émise nulle part est un état
+  mort**, et un `grep` de ses émissions est le contrôle le moins cher qui existe.
+- **⚠️ Et la suite le disait.** Le test attendait `'error'` depuis le début ; il n'a jamais rougi
+  parce que la suite **ne compilait plus** ([[L-001]]). Deux pannes qui se couvrent l'une l'autre :
+  la fusion efface le comportement, la suite muette efface l'alerte. C'est l'argument qui rend
+  `npm test` non négociable avant de rendre la main.
+- **Preuve** — avant : `next('error')` × 0, `npm test` 77/78. Après rétablissement sur les **cinq**
+  échecs techniques de `connect()` / `openCurrentPort()` (Web Serial absent, port refusé non USB,
+  aucun port, ouverture refusée, port illisible) et `isLinkActive()` corrigé pour exclure `'error'` :
+  **78/78 verts**, build vert. Le refus de l'utilisateur dans le sélecteur reste `'disconnected'` —
+  un refus n'est pas une panne. Arbitré par Gerry le 2026-11-18.
+
 ### L-003 : un chemin cité dans la doc dérive au premier renommage — et `status: complete` le fait lire comme un état courant
 
 - **Symptôme** — 2026-11-18, analyse du dépôt. `_bmad-output/project-context.md` annonce « Modèles 3D
@@ -103,5 +131,8 @@ renumérote.
   suite qui ne tourne pas protège exactement autant qu'une suite absente. Garde mécanique posée le
   même jour : [`.githooks/check_imports_resolve.py`](../.githooks/check_imports_resolve.py) refuse à
   l'index tout fichier dont un import relatif n'existe pas sur le disque.
-- **Preuve** — avant : `npm test` → exit 1, 14 erreurs, 0 test exécuté ; `npm run build` → exit 0.
-  Après correction, voir le commit qui répare (bilan de la suite reporté ici).
+- **Preuve** — avant : `npm test` → exit 1, 14 erreurs, **0 test exécuté** ; `npm run build` →
+  exit 0. Après correction des imports : 78 tests exécutés, dont **3 rouges restés cachés tout
+  ce temps** — deux fausses fixtures incomplètes ([[L-002]]) et une régression de fusion
+  ([[L-004]]). Puis **78/78 verts**. Le chiffre qui compte dans cette leçon est le premier :
+  zéro.

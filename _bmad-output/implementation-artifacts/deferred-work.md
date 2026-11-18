@@ -4,6 +4,7 @@ Issues identified during review but not caused by this change — pre-existing t
 
 ## From: refactor-navigation-sidebar (2026-05-30)
 
+- ~~**`'error'` LinkStatus unhandled in connection button**~~ — **CORRIGÉ le 2026-11-18** ([[L-004]]) : `isLinkActive()` exclut désormais `'error'`, et `connect()` l'émet à nouveau sur les cinq échecs techniques. Le diagnostic d'origine était juste, et il était plus grave que noté : `'error'` n'était plus émis du tout. Texte d'origine ci-dessous.
 - **`'error'` LinkStatus unhandled in connection button** — `isLinkActive()` returns `true` for `'error'` status, showing "Déconnecter" when port actually failed. Same behavior as original header.ts. Fix: extend `isLinkActive` to exclude `'error'`, or handle `'error'` state explicitly in UI.
 
 - **`selectedBaud` stale after `tryAutoConnect` / `rebootAutopilotAndReinitialize`** — baud select shows constructor-time value, not most recent localStorage value if auto-connect updated it post-mount. Fix: read from localStorage reactively or expose `lastBaudRate` as a signal from DroneLinkFacade.

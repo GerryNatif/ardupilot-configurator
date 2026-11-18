@@ -97,7 +97,7 @@ export class SerialTransportService implements MavTransport {
   async connect(baudRate = 115200): Promise<void> {
     // Vérifie si Web Serial est supporté par le navigateur
     if (!('serial' in navigator)) {
-      this.statusSubject.next('disconnected');
+      this.statusSubject.next('error');
       throw new AppError('errors.transport.webserial_not_supported');
     }
 
@@ -121,12 +121,13 @@ export class SerialTransportService implements MavTransport {
         try {
           this.port = await serial.requestPort({ filters: this.usbRequestFilters });
         } catch (error) {
-          this.statusSubject.next('disconnected');
-
           if (this.isUserCancelledPortSelection(error)) {
+            // L'utilisateur a fermé le sélecteur : rien n'a échoué, rien n'est ouvert.
+            this.statusSubject.next('disconnected');
             throw new AppError('errors.transport.port_selection_cancelled');
           }
 
+          this.statusSubject.next('error');
           throw error;
         }
       }
@@ -135,7 +136,7 @@ export class SerialTransportService implements MavTransport {
     // Garde-fou: rejette explicitement tout port non USB.
     if (!this.isUsbPort(this.port)) {
       this.port = null;
-      this.statusSubject.next('disconnected');
+      this.statusSubject.next('error');
       throw new AppError('errors.transport.only_usb_supported');
     }
 
@@ -172,7 +173,7 @@ export class SerialTransportService implements MavTransport {
   private async openCurrentPort(baudRate: number): Promise<void> {
     // Vérifie qu'un port est défini
     if (!this.port) {
-      this.statusSubject.next('disconnected');
+      this.statusSubject.next('error');
       throw new AppError('errors.transport.no_port_selected');
     }
 
@@ -180,8 +181,8 @@ export class SerialTransportService implements MavTransport {
     try {
       await this.port.open({ baudRate });
     } catch (error) {
-      // En cas d'erreur, passe le statut à "déconnecté" et relance l'erreur
-      this.statusSubject.next('disconnected');
+      // Le port existe mais refuse de s'ouvrir : c'est une panne, pas une absence.
+      this.statusSubject.next('error');
       throw new AppError('errors.transport.port_open_failed', {
         reason: this.extractErrorMessage(error),
       });
@@ -189,7 +190,7 @@ export class SerialTransportService implements MavTransport {
 
     // Vérifie que le port est lisible et accessible en écriture
     if (!this.port.readable || !this.port.writable) {
-      this.statusSubject.next('disconnected');
+      this.statusSubject.next('error');
       throw new AppError('errors.transport.port_not_readable');
     }
 
