@@ -33,3 +33,46 @@ Issues identified during review but not caused by this change — pre-existing t
 ## From: power-multi-battery-core (2026-06-01)
 
 - **CAP-4 — Chemistry preset auto-fill** — Sélecteur chimie (LiPo, Li-Ion, LiFe, NiMH) + nombre de cellules → auto-remplissage de MAX_VOLT, LOW_VOLT, CRT_VOLT, ARM_VOLT depuis `src/assets/data/battery-chemistries.json`. Visible uniquement pour les types de moniteur mesurant la tension (BATT_MONITOR = 3, 4, 25). Schéma JSON et valeurs de référence définis dans `_bmad-output/specs/spec-power-multi-battery/battery-chemistries.md`.
+
+## From: analyse complète du dépôt (2026-11-18)
+
+Relevés en analysant le dépôt, sans rapport avec un changement en cours. Les deux bloquants de cette
+analyse (suite de tests qui ne compile pas, artefacts de build suivis) ont été **corrigés** le même
+jour ; ce qui suit ne l'est pas.
+
+- **20 composants sans `ChangeDetectionStrategy.OnPush`** — `project-context.md` l'exige « sans
+  exception ». Manquants : `app`, `osd`, `rangefinder`, `blackbox`, `onboard-logging`, `accueil`,
+  `help`, `led-strip`, `connection`, `gps`, `threejs-canva`, `modes`, `dashboard`, `icon-menu`,
+  `vehicle-display`, `card`, `sensors-status`, `gui-box`, `title-page`. Fix : ajouter la stratégie,
+  et vérifier au cas par cas que l'état lu par le gabarit est bien un signal (`App.isSidebarRevealed`
+  est un booléen nu — déjà listé plus haut).
+
+- **i18n : couverture partielle de l'interface** — 51 clés `fr` / 52 `en`. La règle « jamais de
+  message en dur » tient pour les `AppError` mais pas pour les gabarits : libellés français en dur
+  dans `param-table.html` (« Valeur », « Titre », « Parametre », « Description », « Non
+  synchronise »), `connection.html`, `accueil.html`, `help.html`, `channel-gauge.html`,
+  `vehicle-display.html`, `rtl-visualizer.html`. Fix : extraire au fil des pages touchées, pas en un
+  lot — chaque extraction est une occasion de se tromper de clé.
+
+- **`tabServos` n'existe que dans `en.json`** — clé orpheline, absente de `fr.json`. Fix : ajouter la
+  traduction française, ou retirer la clé si elle ne sert plus.
+
+- **`threejs-canva.ts` : 1207 lignes** — 10 % du code TypeScript du dépôt dans un fichier, sans
+  `OnPush`, pour un seul test de fumée. Fix : extraire les responsabilités (montage de scène,
+  interaction, gizmo, rendu) avant d'y ajouter quoi que ce soit.
+
+- **Aucun test de logique sur les pages à paramètres** — `power`, `receiver`, `rtl`, `modes` n'ont
+  qu'un `it('should create')`, alors que `power.ts` (261 lignes) porte la logique multi-batterie et
+  l'auto-fill chimie. Préalable utile : un banc MAVLink rejouable sans drone branché, pour éprouver
+  `ParamBuilderService` + `ParameterDraftSession` de bout en bout.
+
+- **7 `console.*` résiduels dans `src/app`** — à remplacer par le chemin d'erreur applicatif
+  (`AppError` + `UiErrorService`) ou à retirer.
+
+- **Aucun lint** — pas d'ESLint configuré, donc aucune garde sur les imports inutilisés, les `any`
+  implicites résiduels ou les `console.*`. Le hook `pre-commit` ne couvre que la résolution des
+  imports et les artefacts générés.
+
+- **`mavlink-browser` en CommonJS** — provoque un *optimization bailout* au build (avertissement
+  « Module 'events' … is not ESM »). Sans conséquence mesurée sur la taille actuelle (1,65 Mo pour un
+  budget de 2,6 Mo), à surveiller si le bundle approche la limite.

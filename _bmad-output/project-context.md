@@ -2,6 +2,7 @@
 project_name: 'ardupilot-configurator'
 user_name: 'Gerry'
 date: '2026-05-30'
+verified_against_code: '2026-11-18'
 sections_completed: ['technology_stack', 'language_rules', 'framework_rules', 'testing_rules', 'quality_rules', 'workflow_rules', 'anti_patterns']
 status: 'complete'
 rule_count: 48
@@ -11,6 +12,14 @@ optimized_for_llm: true
 # Project Context for AI Agents
 
 _Ce fichier contient les règles et patterns critiques que les agents IA doivent suivre lors de l'implémentation de code dans ce projet. Focus sur les détails non-évidents que les agents pourraient manquer._
+
+> **Vérifié contre le code le 2026-11-18.** Ce document porte les **règles de code** ; les règles
+> de **session** vivent dans [`../CLAUDE.md`](../CLAUDE.md) et les pièges déjà rencontrés dans
+> [`LESSONS-AGENTS.md`](LESSONS-AGENTS.md). La table « Ce qui fait foi » est dans `CLAUDE.md`.
+>
+> ⚠️ **En cas de conflit entre une règle d'ici et le code, le code tranche** — et le conflit se
+> signale, il ne se résout pas en silence. Les écarts connus au 2026-11-18 sont listés en fin de
+> document ; un chemin cité ici se vérifie avant d'être cru ([[L-003]]).
 
 ---
 
@@ -205,13 +214,27 @@ Ne pas court-circuiter cette hiérarchie.
 - `crypto: false` dans le bundle browser — ne pas utiliser `window.crypto` directement
 
 **Données véhicule :**
-- Modèles 3D et définitions de véhicules dans `src/assets/vehicle/vehicles.json`
+- Modèles 3D et définitions de véhicules dans `src/assets/data/vehicles.json` (le dossier `assets/vehicle/` a été renommé en `assets/data/` au commit `4cde387`)
 - Géométries Three.js dans `src/app/features/threejs-editor/services/geometry/`
 
 **Paramètres MAVLink :**
 - `normalizeParamId()` doit être utilisé pour normaliser les noms de paramètres reçus (trim des octets nuls)
 - `ParameterDraftSession` gère les valeurs en attente côté UI — ne pas écrire directement dans le store
 - `rebootRequired` dans les métadonnées doit être respecté lors de l'enregistrement
+
+---
+
+## Écarts connus entre ces règles et le code — relevés le 2026-11-18
+
+Mesurés, non corrigés : la règle reste la règle, le code n'y est pas encore. Détail et pistes de
+correction dans [`implementation-artifacts/deferred-work.md`](implementation-artifacts/deferred-work.md).
+
+| Règle | Écart mesuré |
+|---|---|
+| `OnPush` « sur tous les composants sans exception » | **20 composants** ne l'ont pas, dont `App` (la racine), `threejs-canva`, `connection`, `gui-box`, `title-page`, `card`, `sensors-status` |
+| « JAMAIS de message en dur — toujours une clé i18n » | Tient pour les `AppError`. **Pas** pour l'interface : libellés français en dur dans `param-table.html`, `connection.html`, `accueil.html`, `help.html`, `channel-gauge.html`, `vehicle-display.html`, `rtl-visualizer.html` |
+| « Toujours ajouter les nouvelles clés dans les deux fichiers » | 51 clés `fr` / 52 `en` — `tabServos` n'existe que côté `en` |
+| « Tests de fumée uniquement sur la plupart des composants » | Exact, et à relativiser : **25 fichiers** n'ont qu'un `it('should create')`, et aucune page à paramètres (`power`, `receiver`, `rtl`, `modes`) n'a de test de logique |
 
 ---
 
@@ -228,4 +251,4 @@ Ne pas court-circuiter cette hiérarchie.
 - Mettre à jour lors d'un changement de stack technologique
 - Réviser trimestriellement pour supprimer les règles devenues obsolètes
 
-_Dernière mise à jour : 2026-05-30_
+_Dernière mise à jour : 2026-05-30 — vérifié contre le code le 2026-11-18._

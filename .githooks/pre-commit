@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Pilote des gardes pre-commit. Installé par :
+#
+#     git config core.hooksPath .githooks
+#
+# Chaque garde documente dans son propre docstring le bug réel qui l'a fait
+# naître, ce qu'elle ne couvre pas, et son échappatoire.
+#
+set -uo pipefail
+
+ROOT=$(git rev-parse --show-toplevel)
+statut=0
+
+for garde in check_no_build_artifacts.py check_imports_resolve.py; do
+    python3 "$ROOT/.githooks/$garde" || statut=1
+done
+
+exit $statut
