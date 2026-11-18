@@ -38,6 +38,8 @@ describe('SerialTransportService', () => {
     };
 
     const port = {
+      // isUsbPort() lit getInfo() : un port sans lui fait lever connect() (f839be0)
+      getInfo: () => ({ usbVendorId: 0x0483 }),
       open: vi.fn().mockResolvedValue(undefined),
       close: vi.fn().mockResolvedValue(undefined),
       readable: { getReader: () => reader },

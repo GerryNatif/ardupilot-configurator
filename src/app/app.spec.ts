@@ -5,6 +5,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 
 import { App } from './app';
 import { DroneLinkFacade } from './core/mavlink/facade/drone-link.facade';
+import { LinkStatus } from './core/mavlink/models/telemetry.model';
 import { Theme } from './core/theme/theme';
 
 describe('App', () => {
@@ -21,6 +22,8 @@ describe('App', () => {
           provide: DroneLinkFacade,
           useValue: {
             isConnected: signal(false),
+            // lu par SidebarNavigation (isLinkActive / isConnecting), pas par App
+            linkStatus: signal<LinkStatus>('disconnected'),
             vehicleIdentity: signal({
               vehicleKind: 'copter',
               firmwareFamily: 'arducopter',

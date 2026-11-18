@@ -7,8 +7,8 @@ import { MavlinkCommandService } from '../commands/mavlink-command.service';
 import { MavlinkParserService } from '../protocol/mavlink-parser.service';
 import { ParameterStore } from '../state/parameter.store';
 import { VehicleIdentityStore } from '../state/vehicle-identity.store';
-import { UiErrorService } from '../../services/error/ui-error.service';
-import { ParameterMetadataService } from './parameter-metadata.service';
+import { UiErrorService } from '../../error/ui-error.service';
+import { ParameterMetadataService } from '../../parameter/metadata/parameter-metadata.service';
 import { MavlinkSessionBootstrapService } from './mavlink-session-bootstrap.service';
 
 describe('MavlinkSessionBootstrapService', () => {
